@@ -8,12 +8,12 @@ PasswordModel::PasswordModel(QObject *parent)
 
 int PasswordModel::rowCount(const QModelIndex &parent) const
 {
-    return 0;
+    return 3;
 }
 
 QVariant PasswordModel::data(const QModelIndex &index, int role) const
 {
-    return 0;
+    return "Lol";
 }
 
 QHash<int, QByteArray> PasswordModel::roleNames() const
