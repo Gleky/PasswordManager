@@ -2,3 +2,10 @@
 PasswordManager.pro.user
 release/
 debug/
+Makefile
+Makefile.Debug
+Makefile.Release
+.qmake.stash
+passwordmanager.qmltypes
+passwordmanager_metatypes.json
+passwordmanager_qmltyperegistrations.cpp
