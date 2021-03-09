@@ -4,13 +4,11 @@
 #include "password.h"
 
 #include <QAbstractListModel>
-#include <qqml.h>
 
 
 class PasswordModel : public QAbstractListModel
 {
     Q_OBJECT
-    QML_ELEMENT
 public:
     explicit PasswordModel(QObject *parent = nullptr);
 

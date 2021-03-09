@@ -1,8 +1,12 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "passwordmodel.h"
+
 int main(int argc, char *argv[])
 {
+    qmlRegisterType<PasswordModel>("passwordmodel",1,0,"PasswordModel");
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);

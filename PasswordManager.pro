@@ -33,7 +33,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     password.h \
     passwordmodel.h
-
-CONFIG += qmltypes
-QML_IMPORT_NAME = passwordmodel
-QML_IMPORT_MAJOR_VERSION = 1
