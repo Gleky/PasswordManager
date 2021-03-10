@@ -19,9 +19,9 @@ QVariant PasswordModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> PasswordModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[TitleRole] = "title";
-    roles[DescriptionRole] = "description";
-    roles[LoginRole] = "login";
-    roles[PasswordRole] = "password";
+    roles[TitleRole] = "pwTitle";
+    roles[DescriptionRole] = "pwDescription";
+    roles[LoginRole] = "pwLogin";
+    roles[PasswordRole] = "pwPassword";
     return roles;
 }
