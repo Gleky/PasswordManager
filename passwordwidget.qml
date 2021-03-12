@@ -4,6 +4,9 @@ import QtQuick.Layouts 1.3
 Rectangle{
     color: "#77a6ad"
     radius: 5
+    width: parent.width
+    property int margin: 5
+    implicitHeight: layout.implicitHeight + 2*margin
 
     property string title: ""
     property string description: ""
@@ -12,6 +15,7 @@ Rectangle{
 
     ColumnLayout {
         id: layout
+        anchors.margins: margin
         anchors.fill: parent
         spacing: 5
 
@@ -27,6 +31,7 @@ Rectangle{
         }
 
         RowLayout{
+            spacing: 5
             Text {
                 text: login
             }
@@ -35,7 +40,4 @@ Rectangle{
             }
         }
     }
-
-    width: parent.width
-    height: layout.implicitHeight
 }
