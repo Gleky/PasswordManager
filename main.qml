@@ -14,25 +14,21 @@ ApplicationWindow {
         id: pwmodel
     }
 
-    ScrollView {
+    ListView {
         anchors.fill: parent
+        spacing: 10
 
-        ListView {
-            spacing: 30
+        leftMargin: 10
+        rightMargin: 10
+        topMargin: 10
+        bottomMargin: 10
 
-            leftMargin: 10
-            rightMargin: 10
-            topMargin: 10
-            bottomMargin: 10
-
-            width: parent.width
-            model: pwmodel
-            delegate: PasswordWidget {
-                title: pwTitle
-                description: pwDescription
-                login: pwLogin
-                password: pwPassword
-            }
+        model: pwmodel
+        delegate: PasswordWidget {
+            title: pwTitle
+            description: pwDescription
+            login: pwLogin
+            password: pwPassword
         }
     }
 }
