@@ -19,7 +19,7 @@ public:
 private:
     enum Roles{TitleRole, DescriptionRole, LoginRole, PasswordRole};
 
-    QList<Password*> _paswords;
+    QList<Password> _paswords;
 };
 
 #endif // PASSWORDMODEL_H
