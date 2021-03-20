@@ -2,10 +2,14 @@
 #include <QQmlApplicationEngine>
 
 #include "passwordmodel.h"
+#include "filestorage.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<PasswordModel>("passwordmodel",1,0,"PasswordModel");
+
+    qmlRegisterUncreatableType<IStorage>("filestorage", 1, 0, "IStorage", "This is an interface");
+    qmlRegisterType<FileStorage>("filestorage",1,0,"FileStorage");
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
