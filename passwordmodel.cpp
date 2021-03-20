@@ -1,9 +1,17 @@
 #include "passwordmodel.h"
 
+#include "istorage.h"
+
 PasswordModel::PasswordModel(QObject *parent)
     :QAbstractListModel(parent)
 {
 
+}
+
+void PasswordModel::setStorage(IStorage *storage)
+{
+    _storage = storage;
+    _storage->load(_paswords);
 }
 
 int PasswordModel::rowCount(const QModelIndex &parent) const

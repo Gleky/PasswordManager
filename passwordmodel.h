@@ -5,12 +5,16 @@
 
 #include <QAbstractListModel>
 
+class IStorage;
 
 class PasswordModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(IStorage *storage MEMBER _storage WRITE setStorage)
 public:
     explicit PasswordModel(QObject *parent = nullptr);
+
+    void setStorage(IStorage *storage);
 
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -19,6 +23,7 @@ public:
 private:
     enum Roles{TitleRole, DescriptionRole, LoginRole, PasswordRole};
 
+    IStorage *_storage = nullptr;
     QList<Password> _paswords;
 };
 
