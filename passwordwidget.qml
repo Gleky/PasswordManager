@@ -20,22 +20,27 @@ Rectangle{
         spacing: 5
 
         Text {
+            Layout.fillWidth: true
             color: "#ffffff"
             text: title
             font.pointSize: 12
         }
 
         Text {
+            Layout.fillWidth: true
             color: "#ffffff"
             text: description
         }
 
         RowLayout{
+            Layout.fillWidth: true
             spacing: 5
             Text {
+                Layout.fillWidth: true
                 text: login
             }
             Text {
+                Layout.fillWidth: true
                 text: password
             }
         }
