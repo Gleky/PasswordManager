@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 
 import passwordmodel 1.0
+import filestorage 1.0
 
 
 ApplicationWindow {
@@ -10,8 +11,13 @@ ApplicationWindow {
     width: 640
     height: 480
 
+    FileStorage{
+        id:fstorage
+    }
+
     PasswordModel {
         id: pwmodel
+        storage: fstorage
     }
 
     ListView {
