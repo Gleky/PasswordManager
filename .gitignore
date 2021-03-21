@@ -9,3 +9,4 @@ Makefile.Release
 passwordmanager.qmltypes
 passwordmanager_metatypes.json
 passwordmanager_qmltyperegistrations.cpp
+pass.words

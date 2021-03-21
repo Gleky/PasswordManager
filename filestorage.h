@@ -16,7 +16,7 @@ public:
     void store(const QList<Password> &passwords) const override;
 
 private:
-    QString const _fileName = "ololo.ini";
+    QString const _fileName = "pass.words";
 };
 
 #endif // FILESTORAGE_H
