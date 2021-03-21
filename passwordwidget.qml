@@ -12,11 +12,6 @@ Rectangle {
     property string login: ""
     property string password: ""
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: parent.state = "expanded";
-    }
-
     ColumnLayout {
         id: layout
         anchors.margins: margin
@@ -58,10 +53,17 @@ Rectangle {
         }
     }
 
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: parent.state = "expanded";
+    }
+
     states: [
         State {
             name: "expanded"
             PropertyChanges {target: logpas; visible: true;}
+            PropertyChanges {target: mouseArea; visible: false;}
         }
     ]
 }
