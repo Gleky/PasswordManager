@@ -21,60 +21,61 @@ ApplicationWindow {
         storage: fstorage
     }
 
-    ColumnLayout
-    {
-        anchors.fill: parent
+    ListView {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.top: topBar.bottom
 
-        Rectangle {
-            id: topBar
-            Layout.fillWidth: true
-            height: 30
-            color: "#404040"
+        spacing: 10
+        leftMargin: 10
+        rightMargin: 10
+        topMargin: 10
+        bottomMargin: 10
 
-            Button {
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                width: 60
-                text: "Add"
+        model: pwmodel
+        delegate: PasswordWidget {
+            color: topBar.color
+            title: pwTitle
+            description: pwDescription
+            login: pwLogin
+            password: pwPassword
 
-                onClicked: pwmodel.addNew()
-            }
+            onTitleChanged: model.pwTitle = title;
+            onDescriptionChanged: model.pwDescription = description
+            onLoginChanged: model.pwLogin = login;
+            onPasswordChanged: model.pwPassword = password
+        }
+    }
 
-            Button {
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                width: 60
-                text: "Save"
+    Rectangle {
+        id: topBar
+        height: 30
 
-                onClicked: pwmodel.save()
-            }
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        color: "#404040"
+
+        Button {
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: 60
+            text: "Add"
+
+            onClicked: pwmodel.addNew()
         }
 
-        ListView {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+        Button {
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: 60
+            text: "Save"
 
-            spacing: 10
-            leftMargin: 10
-            rightMargin: 10
-            topMargin: 10
-            bottomMargin: 10
-
-            model: pwmodel
-            delegate: PasswordWidget {
-                color: topBar.color
-                title: pwTitle
-                description: pwDescription
-                login: pwLogin
-                password: pwPassword
-
-                onTitleChanged: model.pwTitle = title;
-                onDescriptionChanged: model.pwDescription = description
-                onLoginChanged: model.pwLogin = login;
-                onPasswordChanged: model.pwPassword = password
-            }
+            onClicked: pwmodel.save()
         }
     }
 }
