@@ -11,7 +11,7 @@ PasswordModel::PasswordModel(QObject *parent)
 void PasswordModel::setStorage(IStorage *storage)
 {
     _storage = storage;
-    _storage->load(_paswords);
+    _storage->load(_passwords);
 }
 
 int PasswordModel::rowCount(const QModelIndex &parent) const
@@ -37,7 +37,7 @@ QHash<int, QByteArray> PasswordModel::roleNames() const
 
 bool PasswordModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    auto item = _paswords[index.row()];
+    auto item = _passwords[index.row()];
 
     switch (role)
     {
@@ -64,14 +64,14 @@ bool PasswordModel::setData(const QModelIndex &index, const QVariant &value, int
 int PasswordModel::addNew()
 {
     beginResetModel();
-    _paswords.append(Password());
+    _passwords.append(Password());
     endResetModel();
-    return _paswords.size()-1;
+    return _passwords.size()-1;
 }
 
 void PasswordModel::remove(int index)
 {
     beginResetModel();
-    _paswords.removeAt(index);
+    _passwords.removeAt(index);
     endResetModel();
 }

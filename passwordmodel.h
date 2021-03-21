@@ -30,7 +30,7 @@ private:
     enum Roles{TitleRole, DescriptionRole, LoginRole, PasswordRole};
 
     IStorage *_storage = nullptr;
-    QList<Password> _paswords;
+    QList<Password> _passwords;
 };
 
 #endif // PASSWORDMODEL_H
