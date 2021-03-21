@@ -12,23 +12,30 @@ Rectangle {
     property string login: ""
     property string password: ""
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
+    }
+
     ColumnLayout {
         id: layout
         anchors.margins: margin
         anchors.fill: parent
         spacing: 5
 
-        Text {
+        TextInput {
             Layout.fillWidth: true
             color: "#ffffff"
             text: title
             font.pointSize: 12
+            onAccepted: {title = text; focus = false;}
         }
 
-        Text {
+        TextInput {
             Layout.fillWidth: true
             color: "#ffffff"
             text: description
+            onAccepted: {description = text; focus = false;}
         }
 
         RowLayout {
@@ -36,20 +43,19 @@ Rectangle {
             visible: false
             Layout.fillWidth: true
             spacing: 5
-            Text {
+            TextInput {
                 Layout.fillWidth: true
+                color: "#ffffff"
                 text: login
+                onAccepted: {login = text; focus = false;}
             }
-            Text {
+            TextInput {
                 Layout.fillWidth: true
+                color: "#ffffff"
                 text: password
+                onAccepted: {password = text; focus = false;}
             }
         }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
     }
 
     states: [
