@@ -20,6 +20,12 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override;
+
+public slots:
+    int addNew();
+    void remove (int index);
+
 private:
     enum Roles{TitleRole, DescriptionRole, LoginRole, PasswordRole};
 
