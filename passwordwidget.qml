@@ -14,7 +14,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
+        onClicked: parent.state = "expanded";
     }
 
     ColumnLayout {
@@ -60,7 +60,7 @@ Rectangle {
 
     states: [
         State {
-            name: "clicked"
+            name: "expanded"
             PropertyChanges {target: logpas; visible: true;}
         }
     ]
