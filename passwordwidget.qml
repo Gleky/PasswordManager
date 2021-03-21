@@ -1,8 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
-Rectangle{
-    color: "#77a6ad"
+Rectangle {
+    color: "#384142"
     radius: 5
     width: parent.width
     property int margin: 5
@@ -32,7 +32,9 @@ Rectangle{
             text: description
         }
 
-        RowLayout{
+        RowLayout {
+            id: logpas
+            visible: false
             Layout.fillWidth: true
             spacing: 5
             Text {
@@ -45,4 +47,16 @@ Rectangle{
             }
         }
     }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
+    }
+
+    states: [
+        State {
+            name: "clicked"
+            PropertyChanges {target: logpas; visible: true;}
+        }
+    ]
 }
