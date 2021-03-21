@@ -25,6 +25,7 @@ public:
 public slots:
     int addNew();
     void remove (int index);
+    void save() const;
 
 private:
     enum Roles{TitleRole, DescriptionRole, LoginRole, PasswordRole};

@@ -96,3 +96,8 @@ void PasswordModel::remove(int index)
     _passwords.removeAt(index);
     endResetModel();
 }
+
+void PasswordModel::save() const
+{
+    _storage->store(_passwords);
+}

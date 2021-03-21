@@ -46,6 +46,8 @@ ApplicationWindow {
                 anchors.bottom: parent.bottom
                 width: 60
                 text: "Save"
+
+                onClicked: pwmodel.save()
             }
         }
 
