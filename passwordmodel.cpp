@@ -37,28 +37,35 @@ QHash<int, QByteArray> PasswordModel::roleNames() const
 
 bool PasswordModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    if ( index.row() >= _passwords.size() ) return false;
     auto item = _passwords[index.row()];
+    auto newText = value.toString();
 
     switch (role)
     {
     case TitleRole:
-        item.title = value.toString();
+        if (item.title != newText) item.title = newText;
+        else return false;
         break;
 
     case DescriptionRole:
-        item.description = value.toString();
+        if (item.description != newText) item.description = newText;
+        else return false;
         break;
 
     case LoginRole:
-        item.login = value.toString();
+        if (item.login != newText) item.login = newText;
+        else return false;
         break;
 
     case PasswordRole:
-        item.password = value.toString();
+        if (item.password != newText) item.password = newText;
+        else return false;
         break;
     }
 
     dataChanged(index,index, QVector<int>(1, role));
+    return true;
 }
 
 int PasswordModel::addNew()
