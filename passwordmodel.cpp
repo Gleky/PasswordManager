@@ -16,12 +16,26 @@ void PasswordModel::setStorage(IStorage *storage)
 
 int PasswordModel::rowCount(const QModelIndex &parent) const
 {
-    return 3;
+    return _passwords.size();
 }
 
 QVariant PasswordModel::data(const QModelIndex &index, int role) const
 {
-    return "Lol";
+    switch (role)
+    {
+    case TitleRole:
+        return _passwords.at(index.row()).title;
+
+    case DescriptionRole:
+        return _passwords.at(index.row()).description;
+
+    case LoginRole:
+        return _passwords.at(index.row()).login;
+
+    case PasswordRole:
+        return _passwords.at(index.row()).password;
+    }
+    return  QVariant();
 }
 
 QHash<int, QByteArray> PasswordModel::roleNames() const
