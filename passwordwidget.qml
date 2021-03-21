@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
 Rectangle {
-    color: "#384142"
     radius: 5
     width: parent.width
     property int margin: 5

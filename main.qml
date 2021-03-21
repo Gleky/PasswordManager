@@ -26,9 +26,10 @@ ApplicationWindow {
         anchors.fill: parent
 
         Rectangle {
+            id: topBar
             Layout.fillWidth: true
             height: 30
-            color: "#424551"
+            color: "#404040"
 
             Button {
                 anchors.left: parent.left
@@ -63,6 +64,7 @@ ApplicationWindow {
 
             model: pwmodel
             delegate: PasswordWidget {
+                color: topBar.color
                 title: pwTitle
                 description: pwDescription
                 login: pwLogin
