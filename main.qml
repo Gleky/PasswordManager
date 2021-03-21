@@ -36,6 +36,8 @@ ApplicationWindow {
                 anchors.bottom: parent.bottom
                 width: 60
                 text: "Add"
+
+                onClicked: pwmodel.addNew()
             }
 
             Button {
@@ -63,6 +65,11 @@ ApplicationWindow {
                 description: pwDescription
                 login: pwLogin
                 password: pwPassword
+
+                onTitleChanged: model.pwTitle = title;
+                onDescriptionChanged: model.pwDescription = description
+                onLoginChanged: model.pwLogin = login;
+                onPasswordChanged: model.pwPassword = password
             }
         }
     }
