@@ -62,6 +62,7 @@ Rectangle {
             color: "#ffffff"
             height: logpas.height
             text: password
+            echoMode: TextInput.Password
             onAccepted: {password = text; focus = false;}
         }
     }
