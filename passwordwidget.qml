@@ -8,6 +8,7 @@ Rectangle {
     height: 2*margin + titleRect.contentHeight
 
     property string title: ""
+    signal clicked();
 
     Text {
         id: titleRect
@@ -19,5 +20,10 @@ Rectangle {
         color: "#ffffff"
         text: title
         font.pointSize: 14
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: mainRect.clicked();
     }
 }

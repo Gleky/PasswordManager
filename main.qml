@@ -39,6 +39,12 @@ ApplicationWindow {
             title: pwTitle
 
             onTitleChanged: model.pwTitle = title;
+            onClicked: {
+                card.title = pwTitle;
+                card.login = pwLogin;
+                card.password = pwPassword;
+                card.show();
+            }
         }
     }
 
@@ -59,7 +65,7 @@ ApplicationWindow {
             width: 60
             text: "Add"
 
-            onClicked: pwmodel.addNew()
+            onClicked: card.show();
         }
 
         Button {
@@ -71,5 +77,9 @@ ApplicationWindow {
 
             onClicked: pwmodel.save()
         }
+    }
+
+    PasswordCard {
+        id: card
     }
 }
