@@ -37,10 +37,8 @@ ApplicationWindow {
         delegate: PasswordWidget {
             color: topBar.color
             title: pwTitle
-            description: pwDescription
 
             onTitleChanged: model.pwTitle = title;
-            onDescriptionChanged: model.pwDescription = description
         }
     }
 

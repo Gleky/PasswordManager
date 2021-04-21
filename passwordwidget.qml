@@ -20,15 +20,4 @@ Rectangle {
         text: title
         font.pointSize: 14
     }
-
-    TextInput {
-        id: descriptionRect
-        anchors.left: titleRect.left
-        anchors.right: titleRect.right
-        anchors.top: titleRect.bottom
-        anchors.topMargin: margin
-
-        color: "#ffffff"
-        text: description
-    }
 }

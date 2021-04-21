@@ -7,7 +7,6 @@ struct Password
 {
 public:
     QString title;
-    QString description;
     QString login;
     QString password;
 };

@@ -28,7 +28,7 @@ public slots:
     void save() const;
 
 private:
-    enum Roles{TitleRole, DescriptionRole, LoginRole, PasswordRole};
+    enum Roles{TitleRole, LoginRole, PasswordRole};
 
     IStorage *_storage = nullptr;
     QList<Password> _passwords;

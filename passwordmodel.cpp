@@ -4,9 +4,7 @@
 
 PasswordModel::PasswordModel(QObject *parent)
     :QAbstractListModel(parent)
-{
-
-}
+{}
 
 void PasswordModel::setStorage(IStorage *storage)
 {
@@ -26,9 +24,6 @@ QVariant PasswordModel::data(const QModelIndex &index, int role) const
     case TitleRole:
         return _passwords.at(index.row()).title;
 
-    case DescriptionRole:
-        return _passwords.at(index.row()).description;
-
     case LoginRole:
         return _passwords.at(index.row()).login;
 
@@ -42,7 +37,6 @@ QHash<int, QByteArray> PasswordModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "pwTitle";
-    roles[DescriptionRole] = "pwDescription";
     roles[LoginRole] = "pwLogin";
     roles[PasswordRole] = "pwPassword";
     return roles;
@@ -59,11 +53,6 @@ bool PasswordModel::setData(const QModelIndex &index, const QVariant &value, int
     {
     case TitleRole:
         if (item.title != newText) item.title = newText;
-        else return false;
-        break;
-
-    case DescriptionRole:
-        if (item.description != newText) item.description = newText;
         else return false;
         break;
 
