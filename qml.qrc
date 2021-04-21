@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>PasswordWidget.qml</file>
+        <file>PasswordCard.qml</file>
     </qresource>
 </RCC>
