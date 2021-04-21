@@ -38,13 +38,9 @@ ApplicationWindow {
             color: topBar.color
             title: pwTitle
             description: pwDescription
-            login: pwLogin
-            password: pwPassword
 
             onTitleChanged: model.pwTitle = title;
             onDescriptionChanged: model.pwDescription = description
-            onLoginChanged: model.pwLogin = login;
-            onPasswordChanged: model.pwPassword = password
         }
     }
 
