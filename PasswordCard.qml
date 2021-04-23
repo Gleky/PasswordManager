@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQuick.Controls 2.5
 
 
 Item {
@@ -44,6 +45,7 @@ Item {
             color: "#ffffff"
             font.pointSize: 18
             horizontalAlignment: Qt.AlignHCenter
+            readOnly: true
 
             anchors.margins: 15
             anchors.top: cardBackground.top
@@ -58,6 +60,7 @@ Item {
             color: "#ffffff"
             font.pointSize: 14
             horizontalAlignment: Qt.AlignHCenter
+            readOnly: true
 
             anchors.topMargin: 20
             anchors.top: titleText.bottom
@@ -73,11 +76,25 @@ Item {
             font.pointSize: 14
             horizontalAlignment: Qt.AlignHCenter
             echoMode: TextInput.Password
+            readOnly: true
 
             anchors.topMargin: 10
             anchors.top: loginText.bottom
             anchors.left: loginText.left
             anchors.right: loginText.right
+        }
+
+        Button {
+            text: "Edit"
+            y: 5
+            x: parent.width - width - y
+            background: Rectangle {
+                implicitHeight:  25
+                implicitWidth: implicitHeight
+                color: "#505050"
+                radius: 5
+            }
+            onClicked: mainItem.state = mainItem.state == "shown" ? "editing" : "shown"
         }
     }
 
@@ -93,6 +110,11 @@ Item {
         State {
             name: "shown"
             PropertyChanges { target: mainItem; opacity: 1; }
+        },
+        State {
+            name: "editing"
+            extend: "shown"
+            PropertyChanges { target: titleText; readOnly: false; }
         }
     ]
 
