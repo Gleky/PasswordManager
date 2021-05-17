@@ -132,6 +132,9 @@ Item {
             name: "editing"
             extend: "shown"
             PropertyChanges { target: titleText; readOnly: false; }
+            PropertyChanges { target: loginText; readOnly: false; }
+            PropertyChanges { target: passwordText; readOnly: false; }
+            PropertyChanges { target: editButton; text: "save"; }
         }
     ]
 
