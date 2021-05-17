@@ -9,6 +9,8 @@ Item {
     property string login
     property string password
 
+    readonly property int buttonsHeight: 25
+
     anchors.fill: parent
     opacity: 0
     visible: false
@@ -95,7 +97,7 @@ Item {
             y: 5
             x: parent.width - width - y
             background: Rectangle {
-                implicitHeight:  25
+                implicitHeight:  buttonsHeight
                 implicitWidth: implicitHeight
                 color: "#505050"
                 radius: 5
@@ -111,7 +113,7 @@ Item {
             anchors.right: editButton.right
 
             background: Rectangle {
-                implicitHeight: 25
+                implicitHeight: buttonsHeight
                 implicitWidth: 30
                 color: "#505050"
                 radius: 5
