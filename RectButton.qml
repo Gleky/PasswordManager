@@ -9,7 +9,8 @@ Button {
     background: Rectangle {
         implicitHeight:  rectHeight
         implicitWidth: rectWidth
-        color: "#505050"
+        color: "#606060"
         radius: 5
+        opacity: 0.6
     }
 }

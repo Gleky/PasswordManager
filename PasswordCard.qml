@@ -31,6 +31,7 @@ Item {
         anchors.horizontalCenter: mainItem.horizontalCenter
         color: "#404040"
         width: 400
+        radius: 5
         height: titleText.anchors.topMargin * 2 +
                 titleText.contentHeight +
                 loginText.anchors.topMargin +
@@ -129,11 +130,13 @@ Item {
             PropertyChanges { target: loginText; readOnly: false; }
             PropertyChanges { target: passwordText; readOnly: false; }
             PropertyChanges { target: editButton; text: "save"; }
+            PropertyChanges { target: cardBackground; color: "#483035"; }
         }
     ]
 
     transitions: Transition {
         PropertyAnimation { target: mainItem; property: "opacity"; easing.type: Easing.OutQuad}
+        PropertyAnimation { target: cardBackground; property: "color"; easing.type: Easing.OutQuad}
     }
 
     onOpacityChanged: visible = (opacity != 0);
