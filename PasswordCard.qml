@@ -22,7 +22,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: mainItem.close()
+        onClicked: { mainItem.close(); }
     }
 
     Rectangle {
@@ -37,6 +37,11 @@ Item {
                 loginText.contentHeight +
                 passwordText.anchors.topMargin +
                 passwordText.contentHeight
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {}
+        }
 
         TextInput {
             id: titleText
