@@ -4,5 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>PasswordWidget.qml</file>
         <file>PasswordCard.qml</file>
+        <file>RectButton.qml</file>
     </qresource>
 </RCC>

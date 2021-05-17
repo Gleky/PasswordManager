@@ -9,8 +9,6 @@ Item {
     property string login
     property string password
 
-    readonly property int buttonsHeight: 25
-
     anchors.fill: parent
     opacity: 0
     visible: false
@@ -91,33 +89,22 @@ Item {
             anchors.right: loginText.right
         }
 
-        Button {
+        RectButton {
             id: editButton
             text: "Edit"
             y: 5
             x: parent.width - width - y
-            background: Rectangle {
-                implicitHeight:  buttonsHeight
-                implicitWidth: implicitHeight
-                color: "#505050"
-                radius: 5
-            }
+
             onClicked: { mainItem.state = mainItem.state == "shown" ? "editing" : "shown" }
         }
 
-        Button {
+        RectButton {
             id: showButton
             text: "show"
 
             anchors.verticalCenter: passwordText.verticalCenter
             anchors.right: editButton.right
 
-            background: Rectangle {
-                implicitHeight: buttonsHeight
-                implicitWidth: 30
-                color: "#505050"
-                radius: 5
-            }
             onPressedChanged: { pressed ? passwordText.echoMode = TextInput.Normal : passwordText.echoMode = TextInput.Password }
         }
     }
