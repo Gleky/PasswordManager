@@ -85,6 +85,7 @@ Item {
         }
 
         Button {
+            id: editButton
             text: "Edit"
             y: 5
             x: parent.width - width - y
@@ -94,7 +95,23 @@ Item {
                 color: "#505050"
                 radius: 5
             }
-            onClicked: mainItem.state = mainItem.state == "shown" ? "editing" : "shown"
+            onClicked: { mainItem.state = mainItem.state == "shown" ? "editing" : "shown" }
+        }
+
+        Button {
+            id: showButton
+            text: "show"
+
+            anchors.verticalCenter: passwordText.verticalCenter
+            anchors.right: editButton.right
+
+            background: Rectangle {
+                implicitHeight: 25
+                implicitWidth: 30
+                color: "#505050"
+                radius: 5
+            }
+            onPressedChanged: { pressed ? passwordText.echoMode = TextInput.Normal : passwordText.echoMode = TextInput.Password }
         }
     }
 
