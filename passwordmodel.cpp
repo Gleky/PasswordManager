@@ -45,7 +45,7 @@ QHash<int, QByteArray> PasswordModel::roleNames() const
 
 bool PasswordModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if ( index.row() >= _passwords.size() ) return false;
+    if ( index.row() >= _passwords.size() || index.row() < 0 ) return false;
     auto &item = _passwords[index.row()];
     auto newText = value.toString();
 
