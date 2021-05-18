@@ -35,7 +35,7 @@ ApplicationWindow {
 
         model: pwmodel
         delegate: PasswordWidget {
-            color: topBar.color
+            color: "#404040"
             title: pwTitle
 
             onTitleChanged: model.pwTitle = title;
@@ -57,7 +57,7 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.top: parent.top
 
-        color: "#404040"
+        color: "#303030"
 
         Button {
             anchors.left: parent.left
