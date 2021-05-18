@@ -23,7 +23,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
 public slots:
-    int addNew();
+    int addNew(QString title, QString login, QString password);
     void remove (int index);
     void save() const;
 

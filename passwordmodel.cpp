@@ -67,14 +67,14 @@ bool PasswordModel::setData(const QModelIndex &index, const QVariant &value, int
         break;
     }
 
-    dataChanged(index,index, QVector<int>(1, role));
+    emit dataChanged(index,index, QVector<int>(1, role));
     return true;
 }
 
-int PasswordModel::addNew()
+int PasswordModel::addNew(QString title, QString login, QString password)
 {
     beginResetModel();
-    _passwords.append(Password());
+    _passwords.append(Password(title, login, password));
     endResetModel();
     return _passwords.size()-1;
 }
