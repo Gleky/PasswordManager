@@ -68,16 +68,6 @@ ApplicationWindow {
 
             onClicked: card.show();
         }
-
-        Button {
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: 60
-            text: "Save"
-
-            onClicked: pwmodel.save()
-        }
     }
 
     PasswordCard {
