@@ -8,6 +8,9 @@ Item {
     property string title
     property string login
     property string password
+    property int idx
+
+    signal remove()
 
     anchors.fill: parent
     opacity: 0
@@ -108,6 +111,15 @@ Item {
 
             onPressedChanged: { pressed ? passwordText.echoMode = TextInput.Normal : passwordText.echoMode = TextInput.Password }
         }
+
+        RectButton {
+            id: removeButton
+            text: "Remove"
+            y: 5
+            x: y
+
+            onClicked: { remove(); }
+        }
     }
 
     function show() {
@@ -115,7 +127,11 @@ Item {
     }
 
     function close() {
-        state = ""
+        state = "";
+        title = "";
+        login = "";
+        password = "";
+        idx = -1;
     }
 
     states: [

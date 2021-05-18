@@ -43,6 +43,7 @@ ApplicationWindow {
                 card.title = pwTitle;
                 card.login = pwLogin;
                 card.password = pwPassword;
+                card.idx = index;
                 card.show();
             }
         }
@@ -81,5 +82,6 @@ ApplicationWindow {
 
     PasswordCard {
         id: card
+        onRemove: { pwmodel.remove(idx); card.close(); }
     }
 }
