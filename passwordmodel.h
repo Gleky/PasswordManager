@@ -22,14 +22,15 @@ public:
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
+    enum Roles{TitleRole, LoginRole, PasswordRole};
+    Q_ENUM(Roles)
+
 public slots:
     int addNew(QString title, QString login, QString password);
     void remove (int index);
     void save() const;
 
 private:
-    enum Roles{TitleRole, LoginRole, PasswordRole};
-
     IStorage *_storage = nullptr;
     QList<Password> _passwords;
 };
