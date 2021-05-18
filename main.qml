@@ -38,12 +38,11 @@ ApplicationWindow {
             color: "#404040"
             title: pwTitle
 
-            onTitleChanged: model.pwTitle = title;
             onClicked: {
+                card.idx = index;
                 card.title = pwTitle;
                 card.login = pwLogin;
                 card.password = pwPassword;
-                card.idx = index;
                 card.show();
             }
         }
@@ -72,6 +71,11 @@ ApplicationWindow {
 
     PasswordCard {
         id: card
+        onSave: { pwmodel.save(); }
         onRemove: { pwmodel.remove(idx); card.close(); }
+
+        onTitleChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), title,    PasswordModel.TitleRole) }
+        onLoginChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), login,    PasswordModel.LoginRole) }
+        onPasswordChanged: { pwmodel.setData(pwmodel.index(card.idx, 0), password, PasswordModel.PasswordRole) }
     }
 }

@@ -10,6 +10,7 @@ Item {
     property string password
     property int idx
 
+    signal save()
     signal remove()
 
     anchors.fill: parent
@@ -50,6 +51,7 @@ Item {
         TextInput {
             id: titleText
             text: title
+            onEditingFinished: { title = text; }
 
             color: "#ffffff"
             font.pointSize: 18
@@ -65,6 +67,7 @@ Item {
         TextInput {
             id: loginText
             text: login
+            onEditingFinished: { login = text; }
 
             color: "#ffffff"
             font.pointSize: 14
@@ -80,6 +83,7 @@ Item {
         TextInput {
             id: passwordText
             text: password
+            onEditingFinished: { password = text; }
 
             color: "#ffffff"
             font.pointSize: 14
@@ -99,7 +103,13 @@ Item {
             y: 5
             x: parent.width - width - y
 
-            onClicked: { mainItem.state = mainItem.state == "shown" ? "editing" : "shown" }
+            onClicked: {
+                if (mainItem.state == "shown") mainItem.state = "editing";
+                else if (mainItem.state == "editing"){
+                    mainItem.state = "shown";
+                    save();
+                }
+            }
         }
 
         RectButton {
@@ -127,11 +137,11 @@ Item {
     }
 
     function close() {
+        idx = -1;
         state = "";
         title = "";
         login = "";
         password = "";
-        idx = -1;
     }
 
     states: [
