@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QmlQClipboard 1.0
 
 
 Item {
@@ -78,12 +79,18 @@ Item {
             anchors.top: titleText.bottom
             anchors.left: titleText.left
             anchors.right: titleText.right
+
+            MouseArea {
+                anchors.fill: parent
+                enabled: loginText.readOnly
+                onDoubleClicked: { Clipboard.copy(loginText.text); }
+            }
         }
 
         TextInput {
             id: passwordText
             text: password
-            onEditingFinished: { password = text; }
+            onEditingFinished: { password = text; Clipboard.copy(""); }
 
             color: "#ffffff"
             font.pointSize: 14
@@ -95,6 +102,12 @@ Item {
             anchors.top: loginText.bottom
             anchors.left: loginText.left
             anchors.right: loginText.right
+
+            MouseArea {
+                anchors.fill: parent
+                enabled: passwordText.readOnly
+                onDoubleClicked: { Clipboard.copy(passwordText.text); }
+            }
         }
 
         RectButton {
@@ -142,6 +155,7 @@ Item {
         title = "";
         login = "";
         password = "";
+        Clipboard.clear();
     }
 
     states: [
