@@ -8,7 +8,7 @@ Item {
     property string title
     property string login
     property string password
-    property int idx
+    property int idx: -1
 
     signal save()
     signal remove()

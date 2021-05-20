@@ -71,7 +71,10 @@ ApplicationWindow {
 
     PasswordCard {
         id: card
-        onSave: { pwmodel.save(); }
+        onSave: {
+            if (idx == -1) pwmodel.addNew(title,login,password);
+            pwmodel.save();
+        }
         onRemove: { pwmodel.remove(idx); card.close(); }
 
         onTitleChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), title,    PasswordModel.TitleRole) }
