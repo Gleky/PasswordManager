@@ -16,7 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         filestorage.cpp \
         main.cpp \
-        passwordmodel.cpp
+        passwordmodel.cpp \
+        qmlclipboard.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,4 +36,5 @@ HEADERS += \
     filestorage.h \
     istorage.h \
     password.h \
-    passwordmodel.h
+    passwordmodel.h \
+    qmlclipboard.h

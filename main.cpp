@@ -3,6 +3,7 @@
 
 #include "passwordmodel.h"
 #include "filestorage.h"
+#include "qmlclipboard.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,6 +11,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterUncreatableType<IStorage>("filestorage", 1, 0, "IStorage", "This is an interface");
     qmlRegisterType<FileStorage>("filestorage",1,0,"FileStorage");
+
+    qmlRegisterSingletonInstance<QmlClipboard>("QmlQClipboard", 1, 0, "Clipboard", new QmlClipboard);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
