@@ -65,7 +65,10 @@ ApplicationWindow {
             width: 60
             text: "Add"
 
-            onClicked: card.show();
+            onClicked: {
+                card.show();
+                card.state = "creating"
+            }
         }
     }
 

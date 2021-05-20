@@ -157,6 +157,11 @@ Item {
             PropertyChanges { target: passwordText; readOnly: false; }
             PropertyChanges { target: editButton; text: "save"; }
             PropertyChanges { target: cardBackground; color: "#483035"; }
+        },
+        State {
+            name: "creating"
+            extend: "editing"
+            PropertyChanges { target: titleText; readOnly: false; focus: true; }
         }
     ]
 
