@@ -118,7 +118,7 @@ Item {
 
             onClicked: {
                 if (mainItem.state == "shown") mainItem.state = "editing";
-                else if (mainItem.state == "editing"){
+                else if (mainItem.state == "editing" || mainItem.state == "creating"){
                     mainItem.state = "shown";
                     save();
                 }
@@ -175,7 +175,7 @@ Item {
         State {
             name: "creating"
             extend: "editing"
-            PropertyChanges { target: titleText; readOnly: false; focus: true; }
+            PropertyChanges { target: titleText; focus: true; }
         }
     ]
 
