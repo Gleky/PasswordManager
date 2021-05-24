@@ -14,5 +14,5 @@ void QmlClipboard::copy(QString text) const
 
 void QmlClipboard::clear() const
 {
-    QGuiApplication::clipboard()->clear();
+    QGuiApplication::clipboard()->setText("");
 }
