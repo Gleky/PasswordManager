@@ -3,18 +3,20 @@
 #include "password.h"
 
 #include <QSettings>
+#include <QDir>
 
 
 FileStorage::FileStorage()
 {}
 
-const QString titleKey = "title";
-const QString loginKey = "login";
-const QString passwordKey = "password";
+const char storageDir[] = "/.pwmng/";
+const char titleKey[] = "title";
+const char loginKey[] = "login";
+const char passwordKey[] = "password";
 
 void FileStorage::load(QList<Password> &passwords)
 {
-    QSettings file(_fileName, QSettings::IniFormat);
+    QSettings file(QDir::homePath() + storageDir + _fileName, QSettings::IniFormat);
     auto passwordGroups = file.childGroups();
 
     for ( auto group : passwordGroups )
@@ -31,7 +33,7 @@ void FileStorage::load(QList<Password> &passwords)
 
 void FileStorage::store(const QList<Password> &passwords) const
 {
-    QSettings file(_fileName, QSettings::IniFormat);
+    QSettings file(QDir::homePath() + storageDir + _fileName, QSettings::IniFormat);
     file.clear();
 
     int i = 0;

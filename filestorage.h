@@ -16,7 +16,7 @@ public:
     void store(const QList<Password> &passwords) const override;
 
 private:
-    QString const _fileName = "pass.words";
+    QString const _fileName = "pw";
 };
 
 #endif // FILESTORAGE_H
