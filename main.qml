@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
 
 import passwordmodel 1.0
 import filestorage 1.0
@@ -70,6 +70,16 @@ ApplicationWindow {
                 card.state = "creating"
             }
         }
+
+        Button {
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: 60
+            text: "Dir"
+
+            onClicked: { fileDialog.show(); }
+        }
     }
 
     PasswordCard {
@@ -83,5 +93,16 @@ ApplicationWindow {
         onTitleChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), title,    PasswordModel.TitleRole) }
         onLoginChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), login,    PasswordModel.LoginRole) }
         onPasswordChanged: { pwmodel.setData(pwmodel.index(card.idx, 0), password, PasswordModel.PasswordRole) }
+    }
+
+    FileDialog {
+        id: fileDialog
+        selectFolder: true
+        function show() {
+            fileDialog.folder = "file:///" + Qt.resolvedUrl( fstorage.storageDir() );
+            fileDialog.open();
+        }
+
+        onAccepted: { fstorage.setDir(folder.toString().replace("file:///","")); }
     }
 }
