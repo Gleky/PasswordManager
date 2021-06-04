@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         filestorage.cpp \
+        istorage.cpp \
         main.cpp \
         passwordmodel.cpp \
         qmlclipboard.cpp
