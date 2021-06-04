@@ -42,3 +42,9 @@ HEADERS += \
     password.h \
     passwordmodel.h \
     qmlclipboard.h
+
+OTHER_FILES += \
+    main.qml \
+    PasswordCard.qml \
+    PasswordWidget.qml \
+    RectButton.qml
