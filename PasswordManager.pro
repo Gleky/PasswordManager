@@ -44,3 +44,9 @@ OTHER_FILES += \
     PasswordCard.qml \
     PasswordWidget.qml \
     RectButton.qml
+
+win32 {
+    LIBS += -L$$PWD/'../../Program Files/OpenSSL-Win64/lib/' -llibcrypto
+    INCLUDEPATH += $$PWD/'../../Program Files/OpenSSL-Win64/include'
+    DEPENDPATH += $$PWD/'../../Program Files/OpenSSL-Win64/include'
+}
