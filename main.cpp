@@ -3,6 +3,7 @@
 
 #include "passwordmodel.h"
 #include "filestorage.h"
+#include "encryptedfilestorage.h"
 #include "qmlclipboard.h"
 
 int main(int argc, char *argv[])
@@ -11,6 +12,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterUncreatableType<IStorage>("filestorage", 1, 0, "IStorage", "This is an interface");
     qmlRegisterType<FileStorage>("filestorage",1,0,"FileStorage");
+    qmlRegisterType<EncryptedFileStorage>("encryptedfilestorage",1,0,"EncryptedFileStorage");
 
     qmlRegisterSingletonInstance<QmlClipboard>("QmlQClipboard", 1, 0, "Clipboard", new QmlClipboard);
 

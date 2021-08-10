@@ -4,6 +4,7 @@ import QtQuick.Dialogs 1.2
 
 import passwordmodel 1.0
 import filestorage 1.0
+import encryptedfilestorage 1.0
 
 
 ApplicationWindow {
@@ -13,12 +14,16 @@ ApplicationWindow {
     height: 800
 
     FileStorage{
-        id:fstorage
+        id:fs
+    }
+
+    EncryptedFileStorage{
+        id:encryptedfs
     }
 
     PasswordModel {
         id: pwmodel
-        storage: fstorage
+        storage: fs
     }
 
     ListView {
