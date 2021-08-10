@@ -6,13 +6,14 @@
 #include <string>
 #include <openssl/evp.h>
 
+#include <QFile>
 
-bool computeHash(const std::string& input, std::string& hashed);
+
+bool computeHash(const std::string &input, std::string &hashed);
+bool decryptFile(const std::string &filePath, const std::string &key);
 
 EncryptedFileStorage::EncryptedFileStorage()
-{
-
-}
+{}
 
 void EncryptedFileStorage::store(const QList<Password> &passwords) const
 {
@@ -22,6 +23,27 @@ void EncryptedFileStorage::store(const QList<Password> &passwords) const
 void EncryptedFileStorage::load(QList<Password> &passwords)
 {
 
+}
+
+void EncryptedFileStorage::setPassPhrase(QString passPhrase)
+{
+    if (!QFile::exists(storageDir() + _fileName))
+    {
+        _passPhrase = passPhrase;
+        emit passPhraseAccepted(true);
+        return;
+    }
+
+    bool success = false;
+    std::string key = passPhrase.toStdString(), keyHash;
+    std::string filePath = (storageDir()+_fileName).toStdString();
+
+    if (computeHash(key, keyHash) &&
+        decryptFile(filePath, keyHash))
+    {
+        success = true;
+    }
+    emit passPhraseAccepted(success);
 }
 
 
@@ -49,5 +71,11 @@ bool computeHash(const std::string& input, std::string& hashed)
         success = true;
     }
     EVP_MD_CTX_free(context);
+    return success;
+}
+
+bool decryptFile(const std::string &filePath, const std::string &key)
+{
+    bool success = false;
     return success;
 }
