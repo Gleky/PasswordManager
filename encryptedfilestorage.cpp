@@ -134,9 +134,9 @@ bool encryptToFile(const QString &filePath,
     unsigned char *uc_plainText = (unsigned char*)plainText.c_str();
     int plainTextLength = plainText.length();
 
-    QByteArray qba_ciphertext;
-    qba_ciphertext.reserve(plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()));
-    unsigned char *uc_ciphertext = (unsigned char*)qba_ciphertext.data();
+    QVector<unsigned char> vector_ciphertext;
+    vector_ciphertext.reserve(plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()));
+    unsigned char *uc_ciphertext = vector_ciphertext.data();
     int cipherTextLength;
 
     cipherTextLength = encrypt (uc_plainText,
@@ -154,7 +154,7 @@ bool encryptToFile(const QString &filePath,
     QFile newFile(filePath);
     Q_ASSERT(!newFile.exists());
     newFile.open(QIODevice::WriteOnly);
-    auto bytesWritten = newFile.write(qba_ciphertext);
+    auto bytesWritten = newFile.write((char*)vector_ciphertext.data(), cipherTextLength);
     if (bytesWritten != cipherTextLength)
     {
         newFile.remove();
@@ -183,9 +183,9 @@ bool decryptFile(const QString &filePath,
     unsigned char *uc_ciphertext = (unsigned char*)qba_encryptedText.data();
     int cipherTextLength = qba_encryptedText.length();
 
-    QByteArray qba_decryptedText;
-    qba_decryptedText.reserve(cipherTextLength);
-    unsigned char *uc_decryptedText = (unsigned char*)qba_decryptedText.data();
+    QVector<unsigned char> vector_decryptedText;
+    vector_decryptedText.reserve(cipherTextLength);
+    unsigned char *uc_decryptedText = vector_decryptedText.data();
     int decryptedTextLength;
 
     decryptedTextLength = decrypt(uc_ciphertext,
@@ -195,7 +195,8 @@ bool decryptFile(const QString &filePath,
                                 uc_decryptedText);
 
     uc_decryptedText[decryptedTextLength] = '\0';
-    decryptedText = (char *)uc_decryptedText;
+    decryptedText.clear();
+    decryptedText.append((char *)uc_decryptedText, decryptedTextLength + 1);
     return true;
 }
 
