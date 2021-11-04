@@ -16,11 +16,13 @@ public:
     void setPassPhrase(QString passPhrase);
 
 signals:
+    void askPassPhrase();
     void passPhraseAccepted(bool accepted);
 
 private:
     QString const _fileName = "epw";
     QString _passPhrase;
+    std::string _decryptedText;
 };
 
 #endif // ENCRYPTEDFILESTORAGE_H

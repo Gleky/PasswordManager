@@ -24,7 +24,7 @@ int decrypt(const unsigned char *ciphertext,
             const unsigned char *iv,
             unsigned char *plaintext);
 
-bool decryptFile(const std::string &filePath, const std::string &key, std::string &decryptedText);
+bool decryptFile(const QString &filePath, const std::string &key, std::string &decryptedText);
 }
 
 
@@ -35,34 +35,20 @@ EncryptedFileStorage::EncryptedFileStorage()
 
 void EncryptedFileStorage::store(const QList<Password> &passwords) const
 {
-
+    //convert list to plaintext
+    //encrypt plaintext
+    //save it to file
 }
 
 void EncryptedFileStorage::load(QList<Password> &passwords)
 {
-    unsigned char key[] = "01234567890123456789012345678901";
-    unsigned char plaintext[] = "The quick brown fox jumps over the lazy dog";
+    if (_passPhrase.isEmpty())
+    {
+        emit askPassPhrase();
+        return;
+    }
 
-    /*
-     * Buffer for ciphertext. Ensure the buffer is long enough for the
-     * ciphertext which may be longer than the plaintext, depending on the
-     * algorithm and mode.
-     */
-    unsigned char ciphertext[128];
-    unsigned char decryptedtext[128];
-    int decryptedtext_len, ciphertext_len;
-
-    ciphertext_len = encrypt (plaintext, strlen ((char *)plaintext), key, iv,
-                              ciphertext);
-
-    decryptedtext_len = decrypt(ciphertext, ciphertext_len, key, iv,
-                                decryptedtext);
-
-    decryptedtext[decryptedtext_len] = '\0';
-    qDebug() << "Source text:" << (char *)plaintext;
-    qDebug() << "Encrypted text:" << (char *)ciphertext;
-    qDebug() << "decrypt result:" << (char *)decryptedtext;
-    qDebug() << "Are they equal?" << (QString((char *)plaintext) == QString((char *)decryptedtext));
+    //load from decryptedText
 }
 
 void EncryptedFileStorage::setPassPhrase(QString passPhrase)
@@ -76,11 +62,10 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
 
     bool success = false;
     std::string key = passPhrase.toStdString(), keyHash;
-    std::string filePath = (storageDir()+_fileName).toStdString();
-    std::string decryptedText;
+    auto filePath = storageDir()+_fileName;
 
     if (computeHash(key, keyHash) &&
-        decryptFile(filePath, keyHash, decryptedText))
+        decryptFile(filePath, keyHash, _decryptedText))
     {
         success = true;
     }
@@ -89,10 +74,34 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
 
 
 namespace {
-bool decryptFile(const std::string &filePath, const std::string &key, std::string &decryptedText)
+bool decryptFile(const QString &filePath, const std::string &key, std::string &decryptedText)
 {
-    return false;
+    QFile encryptedFile(filePath);
+    if (!encryptedFile.exists()) return false;
+
+    QByteArray qba_encryptedText = encryptedFile.readAll();
+    const unsigned char *uc_key = (unsigned char*)key.c_str();
+
+    unsigned char *uc_ciphertext = (unsigned char*)qba_encryptedText.data();
+    int cipherTextLength = qba_encryptedText.length();
+
+    QByteArray qba_decryptedText;
+    qba_decryptedText.reserve(cipherTextLength);
+    unsigned char *uc_decryptedText = (unsigned char*)qba_decryptedText.data();
+    int decryptedTextLength;
+
+    decryptedTextLength = decrypt(uc_ciphertext,
+                                cipherTextLength,
+                                uc_key,
+                                iv,
+                                uc_decryptedText);
+
+    uc_decryptedText[decryptedTextLength] = '\0';
+    decryptedText = (char *)uc_decryptedText;
+    return true;
 }
+
+//ciphertext_len = encrypt (plaintext, strlen ((char *)plaintext), key, iv, ciphertext);
 
 bool computeHash(const std::string& input, std::string& hashed)
 {
