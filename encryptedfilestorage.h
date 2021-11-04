@@ -6,7 +6,7 @@
 class EncryptedFileStorage : public IStorage
 {
     Q_OBJECT
-    Q_PROPERTY(QString *passPhrase MEMBER _passPhrase WRITE setPassPhrase)
+    Q_PROPERTY(QString passPhrase MEMBER _passPhrase WRITE setPassPhrase)
 public:
     EncryptedFileStorage();
 
