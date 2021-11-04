@@ -1,5 +1,7 @@
 #include "encryptedfilestorage.h"
 
+#include "password.h"
+
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -7,6 +9,9 @@
 #include <openssl/evp.h>
 
 #include <QFile>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QCborValue>
 #include <QDebug>
 
 namespace {
@@ -31,6 +36,9 @@ bool encryptToFile(const QString &filePath,
 bool decryptFile(const QString &filePath,
                  const std::string &key,
                  std::string &decryptedText);
+
+void serialize(const QList<Password> &input, std::string &output);
+void deserialize(const std::string &input, QList<Password> &output);
 }
 
 
@@ -41,9 +49,8 @@ EncryptedFileStorage::EncryptedFileStorage()
 
 void EncryptedFileStorage::store(const QList<Password> &passwords) const
 {
-    //convert list to plaintext
-
     std::string plainText;
+    serialize(passwords, plainText);
 
     std::string key = _passPhrase.toStdString(), keyHash;
     Q_ASSERT( computeHash(key, keyHash) );
@@ -60,7 +67,8 @@ void EncryptedFileStorage::load(QList<Password> &passwords)
         return;
     }
 
-    //load from decryptedText
+    deserialize(_decryptedText, passwords);
+    _decryptedText.clear();
 }
 
 void EncryptedFileStorage::setPassPhrase(QString passPhrase)
@@ -87,6 +95,35 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
 
 
 namespace {
+void serialize(const QList<Password> &input, std::string &output)
+{
+    QJsonArray array;
+    for (const auto &entry : input)
+    {
+        QJsonObject object;
+        object["title"] = entry.title;
+        object["login"] = entry.login;
+        object["password"] = entry.password;
+        array.append(object);
+    }
+    QByteArray bin = QCborValue::fromJsonValue(array).toCbor();
+    output = bin.data();
+}
+
+void deserialize(const std::string &input, QList<Password> &output)
+{
+    QByteArray bin = input.c_str();
+    const QJsonArray array = QCborValue::fromCbor(bin).toJsonValue().toArray();
+    for (const auto &entry : array)
+    {
+        auto jsonObject = entry.toObject();
+        auto title = jsonObject["title"].toString();
+        auto login = jsonObject["login"].toString();
+        auto password = jsonObject["password"].toString();
+        output.append(Password(title, login, password));
+    }
+}
+
 bool encryptToFile(const QString &filePath,
                    const std::string &key,
                    const std::string &plainText)
