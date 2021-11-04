@@ -92,6 +92,7 @@ ApplicationWindow {
         onSave: {
             if (idx == -1) pwmodel.addNew(title,login,password);
             pwmodel.save();
+            idx = pwmodel.rowCount()-1;
         }
         onRemove: { pwmodel.remove(idx); card.close(); }
 
