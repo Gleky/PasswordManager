@@ -56,7 +56,7 @@ void EncryptedFileStorage::store(const QList<Password> &passwords) const
     Q_ASSERT( computeHash(key, keyHash) );
 
     auto filePath = storageDir()+_fileName;
-    Q_ASSERT( encryptToFile(filePath, key, plainText) );
+    Q_ASSERT( encryptToFile(filePath, keyHash, plainText) );
 }
 
 void EncryptedFileStorage::load(QList<Password> &passwords)
@@ -146,13 +146,10 @@ bool encryptToFile(const QString &filePath,
                                 uc_ciphertext);
     uc_ciphertext[cipherTextLength] = '\0';
 
-    Q_ASSERT(cipherTextLength == qba_ciphertext.length());
-
     QFile existingFile(filePath);
-    existingFile.rename(filePath + "_old");
+    if (existingFile.exists() && !existingFile.rename(filePath + "_old")) return false;
 
     QFile newFile(filePath);
-    Q_ASSERT(!newFile.exists());
     newFile.open(QIODevice::WriteOnly);
     auto bytesWritten = newFile.write((char*)vector_ciphertext.data(), cipherTextLength);
     if (bytesWritten != cipherTextLength)
@@ -204,10 +201,11 @@ bool decryptFile(const QString &filePath,
 
 bool computeHash(const std::string& input, std::string& hashed)
 {
-    bool success = false;
+    if (input.empty()) return false;
 
+    bool success = false;
     EVP_MD_CTX* context = EVP_MD_CTX_new();
-    if (context == nullptr) return success;
+    if (context == nullptr) return false;
 
     unsigned char hash[EVP_MAX_MD_SIZE];
     unsigned int hashLength = 0;
