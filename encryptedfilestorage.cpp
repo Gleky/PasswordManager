@@ -134,25 +134,26 @@ bool encryptToFile(const QString &filePath,
     unsigned char *uc_plainText = (unsigned char*)plainText.c_str();
     int plainTextLength = plainText.length();
 
-    QVector<unsigned char> vector_ciphertext;
-    vector_ciphertext.reserve(plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()));
-    unsigned char *uc_ciphertext = vector_ciphertext.data();
-    int cipherTextLength;
+    int maxCiphertextLength = plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()) + 1;
+    unsigned char *uc_ciphertext = new unsigned char[maxCiphertextLength];
+    int ciphertextLength;
 
-    cipherTextLength = encrypt (uc_plainText,
+    ciphertextLength = encrypt (uc_plainText,
                                 plainTextLength,
                                 uc_key,
                                 iv,
                                 uc_ciphertext);
-    uc_ciphertext[cipherTextLength] = '\0';
+    uc_ciphertext[ciphertextLength] = '\0';
 
     QFile existingFile(filePath);
     if (existingFile.exists() && !existingFile.rename(filePath + "_old")) return false;
 
     QFile newFile(filePath);
     newFile.open(QIODevice::WriteOnly);
-    auto bytesWritten = newFile.write((char*)vector_ciphertext.data(), cipherTextLength);
-    if (bytesWritten != cipherTextLength)
+    auto bytesWritten = newFile.write((char*)uc_ciphertext, ciphertextLength);
+    delete [] uc_ciphertext;
+
+    if (bytesWritten != ciphertextLength)
     {
         newFile.remove();
         existingFile.rename(filePath);
@@ -180,9 +181,8 @@ bool decryptFile(const QString &filePath,
     unsigned char *uc_ciphertext = (unsigned char*)qba_encryptedText.data();
     int cipherTextLength = qba_encryptedText.length();
 
-    QVector<unsigned char> vector_decryptedText;
-    vector_decryptedText.reserve(cipherTextLength);
-    unsigned char *uc_decryptedText = vector_decryptedText.data();
+    int maxPlainTextLength = cipherTextLength + 1;
+    unsigned char *uc_decryptedText = new unsigned char[maxPlainTextLength];
     int decryptedTextLength;
 
     decryptedTextLength = decrypt(uc_ciphertext,
@@ -194,6 +194,7 @@ bool decryptFile(const QString &filePath,
     uc_decryptedText[decryptedTextLength] = '\0';
     decryptedText.clear();
     decryptedText.append((char *)uc_decryptedText, decryptedTextLength + 1);
+    delete [] uc_decryptedText;
     return true;
 }
 
