@@ -24,7 +24,13 @@ int decrypt(const unsigned char *ciphertext,
             const unsigned char *iv,
             unsigned char *plaintext);
 
-bool decryptFile(const QString &filePath, const std::string &key, std::string &decryptedText);
+bool encryptToFile(const QString &filePath,
+                   const std::string &key,
+                   const std::string &plainText);
+
+bool decryptFile(const QString &filePath,
+                 const std::string &key,
+                 std::string &decryptedText);
 }
 
 
@@ -36,8 +42,14 @@ EncryptedFileStorage::EncryptedFileStorage()
 void EncryptedFileStorage::store(const QList<Password> &passwords) const
 {
     //convert list to plaintext
-    //encrypt plaintext
-    //save it to file
+
+    std::string plainText;
+
+    std::string key = _passPhrase.toStdString(), keyHash;
+    Q_ASSERT( computeHash(key, keyHash) );
+
+    auto filePath = storageDir()+_fileName;
+    Q_ASSERT( encryptToFile(filePath, key, plainText) );
 }
 
 void EncryptedFileStorage::load(QList<Password> &passwords)
@@ -68,16 +80,65 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
         decryptFile(filePath, keyHash, _decryptedText))
     {
         success = true;
+        _passPhrase = passPhrase;
     }
     emit passPhraseAccepted(success);
 }
 
 
 namespace {
-bool decryptFile(const QString &filePath, const std::string &key, std::string &decryptedText)
+bool encryptToFile(const QString &filePath,
+                   const std::string &key,
+                   const std::string &plainText)
+{
+    const unsigned char *uc_key = (unsigned char*)key.c_str();
+
+
+    unsigned char *uc_plainText = (unsigned char*)plainText.c_str();
+    int plainTextLength = plainText.length();
+
+    QByteArray qba_ciphertext;
+    qba_ciphertext.reserve(plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()));
+    unsigned char *uc_ciphertext = (unsigned char*)qba_ciphertext.data();
+    int cipherTextLength;
+
+    cipherTextLength = encrypt (uc_plainText,
+                                plainTextLength,
+                                uc_key,
+                                iv,
+                                uc_ciphertext);
+    uc_ciphertext[cipherTextLength] = '\0';
+
+    Q_ASSERT(cipherTextLength == qba_ciphertext.length());
+
+    QFile existingFile(filePath);
+    existingFile.rename(filePath + "_old");
+
+    QFile newFile(filePath);
+    Q_ASSERT(!newFile.exists());
+    newFile.open(QIODevice::WriteOnly);
+    auto bytesWritten = newFile.write(qba_ciphertext);
+    if (bytesWritten != cipherTextLength)
+    {
+        newFile.remove();
+        existingFile.rename(filePath);
+        return false;
+    }
+    else
+    {
+        existingFile.remove();
+        return true;
+    }
+    return false;
+}
+
+bool decryptFile(const QString &filePath,
+                 const std::string &key,
+                 std::string &decryptedText)
 {
     QFile encryptedFile(filePath);
     if (!encryptedFile.exists()) return false;
+    encryptedFile.open(QIODevice::ReadOnly);
 
     QByteArray qba_encryptedText = encryptedFile.readAll();
     const unsigned char *uc_key = (unsigned char*)key.c_str();
