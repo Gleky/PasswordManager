@@ -94,7 +94,11 @@ ApplicationWindow {
             pwmodel.save();
             idx = pwmodel.rowCount()-1;
         }
-        onRemove: { pwmodel.remove(idx); card.close(); }
+        onRemove: {
+            pwmodel.remove(idx);
+            pwmodel.save();
+            card.close();
+        }
 
         onTitleChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), title,    PasswordModel.TitleRole) }
         onLoginChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), login,    PasswordModel.LoginRole) }
