@@ -63,7 +63,7 @@ ApplicationWindow {
 
     Rectangle {
         id: topBar
-        height: 30
+        height: newButton.height
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -71,12 +71,17 @@ ApplicationWindow {
 
         color: "#303030"
 
-        Button {
-            anchors.left: parent.left
+        RectButton {
+            id: newButton
+            anchors.margins: 7
+            anchors.right: parent.right
             anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: 60
-            text: "Add"
+
+            rectHeight: 40
+            rectWidth: 40
+
+            text: "+"
+            font.pointSize: 18
 
             onClicked: {
                 card.show();
@@ -84,12 +89,14 @@ ApplicationWindow {
             }
         }
 
-        Button {
-            anchors.right: parent.right
+        RectButton {
+            anchors.margins: newButton.anchors.margins
+            anchors.left: parent.left
             anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: 60
             text: "Dir"
+
+            rectHeight: newButton.rectHeight
+            rectWidth: newButton.rectWidth
 
             onClicked: { fileDialog.show(); }
         }
