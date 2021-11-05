@@ -5,5 +5,6 @@
         <file>PasswordWidget.qml</file>
         <file>PasswordCard.qml</file>
         <file>RectButton.qml</file>
+        <file>StoragePasswordInput.qml</file>
     </qresource>
 </RCC>

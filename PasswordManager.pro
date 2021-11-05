@@ -41,6 +41,7 @@ HEADERS += \
 
 OTHER_FILES += \
     main.qml \
+    StoragePasswordInput.qml \
     PasswordCard.qml \
     PasswordWidget.qml \
     RectButton.qml
