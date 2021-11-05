@@ -9,7 +9,9 @@ PasswordModel::PasswordModel(QObject *parent)
 void PasswordModel::setStorage(IStorage *storage)
 {
     _storage = storage;
+    beginResetModel();
     _storage->load(_passwords);
+    endResetModel();
 }
 
 int PasswordModel::rowCount(const QModelIndex &parent) const
