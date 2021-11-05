@@ -17,13 +17,21 @@ ApplicationWindow {
         id:fs
     }
 
-    EncryptedFileStorage{
+    EncryptedFileStorage {
         id:encryptedfs
+        onAskPassPhrase: passwordInput.show();
+        onPassPhraseAccepted: {
+            if (accepted) {
+                pwmodel.storage = encryptedfs;
+                passwordInput.close();
+            }
+            else passwordInput.showPasswordIsWrong();
+        }
     }
 
     PasswordModel {
         id: pwmodel
-        storage: fs
+        storage: encryptedfs
     }
 
     ListView {
@@ -103,6 +111,11 @@ ApplicationWindow {
         onTitleChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), title,    PasswordModel.TitleRole) }
         onLoginChanged:    { pwmodel.setData(pwmodel.index(card.idx, 0), login,    PasswordModel.LoginRole) }
         onPasswordChanged: { pwmodel.setData(pwmodel.index(card.idx, 0), password, PasswordModel.PasswordRole) }
+    }
+
+    StoragePasswordInput {
+        id:passwordInput
+        onAccept: { encryptedfs.passPhrase = password; }
     }
 
     FileDialog {
