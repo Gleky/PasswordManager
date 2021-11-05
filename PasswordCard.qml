@@ -112,7 +112,7 @@ Item {
 
         RectButton {
             id: editButton
-            text: "Edit"
+            icon.source: "qrc:///button_icons/edit.png"
             y: 5
             x: parent.width - width - y
 
@@ -127,7 +127,7 @@ Item {
 
         RectButton {
             id: showButton
-            text: "show"
+            icon.source: "qrc:///button_icons/show_password.png"
 
             anchors.verticalCenter: passwordText.verticalCenter
             anchors.right: editButton.right
@@ -137,7 +137,7 @@ Item {
 
         RectButton {
             id: removeButton
-            text: "Remove"
+            icon.source: "qrc:///button_icons/remove.png"
             y: 5
             x: y
 
@@ -169,7 +169,7 @@ Item {
             PropertyChanges { target: titleText; readOnly: false; }
             PropertyChanges { target: loginText; readOnly: false; }
             PropertyChanges { target: passwordText; readOnly: false; }
-            PropertyChanges { target: editButton; text: "save"; }
+            PropertyChanges { target: editButton; icon.source: "qrc:///button_icons/save.png"; }
             PropertyChanges { target: cardBackground; color: "#483035"; }
         },
         State {

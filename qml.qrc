@@ -6,5 +6,11 @@
         <file>PasswordCard.qml</file>
         <file>RectButton.qml</file>
         <file>StoragePasswordInput.qml</file>
+        <file>button_icons/copy.png</file>
+        <file>button_icons/edit.png</file>
+        <file>button_icons/menu.png</file>
+        <file>button_icons/remove.png</file>
+        <file>button_icons/save.png</file>
+        <file>button_icons/show_password.png</file>
     </qresource>
 </RCC>

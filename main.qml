@@ -93,10 +93,11 @@ ApplicationWindow {
             anchors.margins: newButton.anchors.margins
             anchors.left: parent.left
             anchors.top: parent.top
-            text: "Dir"
 
             rectHeight: newButton.rectHeight
             rectWidth: newButton.rectWidth
+
+            icon.source: "qrc:///button_icons/menu.png"
 
             onClicked: { fileDialog.show(); }
         }
