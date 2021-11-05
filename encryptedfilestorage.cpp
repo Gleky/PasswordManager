@@ -131,11 +131,13 @@ bool encryptToFile(const QString &filePath,
                    const std::string &key,
                    const std::string &plainText)
 {
+    std::string hashAndData;
+    if (!computeHash(plainText, hashAndData)) return false;
+    hashAndData += plainText;
+
     const unsigned char *uc_key = (unsigned char*)key.c_str();
-
-
-    unsigned char *uc_plainText = (unsigned char*)plainText.c_str();
-    int plainTextLength = static_cast<int>(plainText.length());
+    unsigned char *uc_plainText = (unsigned char*)hashAndData.c_str();
+    int plainTextLength = static_cast<int>(hashAndData.length());
 
     int maxCiphertextLength = plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()) + 1;
     unsigned char *uc_ciphertext = new unsigned char[maxCiphertextLength];
@@ -195,13 +197,20 @@ bool decryptFile(const QString &filePath,
                                 uc_decryptedText);
 
     uc_decryptedText[decryptedTextLength] = '\0';
-    decryptedText.clear();
-    decryptedText.append((char *)uc_decryptedText, decryptedTextLength + 1);
+    std::string hashAndData;
+    hashAndData.append((char *)uc_decryptedText, decryptedTextLength);
     delete [] uc_decryptedText;
+
+    std::string data = hashAndData.substr(64);
+    std::string readHash = hashAndData.substr(0, 64);
+    std::string computedHash;
+    computeHash(data, computedHash);
+    if (readHash != computedHash) return false;
+
+    decryptedText = data;
     return true;
 }
 
-//ciphertext_len = encrypt (plaintext, strlen ((char *)plaintext), key, iv, ciphertext);
 
 bool computeHash(const std::string& input, std::string& hashed)
 {
