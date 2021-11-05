@@ -52,6 +52,24 @@ Item {
             radius: 5
             opacity: 0
             anchors.fill: passphraseText
+
+            PropertyAnimation {
+                id: wrongKey
+                target: passphraseBackground;
+                to: 0.3
+                duration: 100
+                property: "opacity";
+                easing.type: Easing.InQuad
+                onFinished: { wrongKey_end.start(); }
+            }
+            PropertyAnimation {
+                id: wrongKey_end
+                target: passphraseBackground;
+                to: 0
+                duration: 600
+                property: "opacity";
+                easing.type: Easing.OutQuad
+            }
         }
 
         TextInput {
@@ -90,6 +108,7 @@ Item {
     }
 
     function showPasswordIsWrong() {
+        wrongKey.start();
         shakeInputText();
     }
 
