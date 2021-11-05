@@ -113,7 +113,10 @@ void serialize(const QList<Password> &input, std::string &output)
 void deserialize(const std::string &input, QList<Password> &output)
 {
     QByteArray bin = input.c_str();
-    const QJsonArray array = QCborValue::fromCbor(bin).toJsonValue().toArray();
+    auto cbor = QCborValue::fromCbor(bin);
+    if (cbor.type() != QCborValue::Array) return;
+
+    const QJsonArray array = cbor.toJsonValue().toArray();
     for (const auto &entry : array)
     {
         auto jsonObject = entry.toObject();
