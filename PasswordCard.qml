@@ -37,21 +37,22 @@ Item {
         color: "#404040"
         width: 400
         radius: 5
-        height: titleText.anchors.topMargin * 2 +
-                titleText.contentHeight +
+        height: titleText.anchors.topMargin +
+                titleText.height +
                 loginText.anchors.topMargin +
-                loginText.contentHeight +
+                loginText.height +
                 passwordText.anchors.topMargin +
-                passwordText.contentHeight
+                passwordText.height
 
         MouseArea {
             anchors.fill: parent
             onClicked: {}
         }
 
-        TextInput {
+        TextField {
             id: titleText
             text: title
+            placeholderText: "title"
             onEditingFinished: { title = text; }
 
             color: "#ffffff"
@@ -59,15 +60,18 @@ Item {
             horizontalAlignment: Qt.AlignHCenter
             readOnly: true
 
-            anchors.margins: 15
+            anchors.margins: 10
             anchors.top: cardBackground.top
             anchors.left: cardBackground.left
             anchors.right: cardBackground.right
+
+            background: {}
         }
 
-        TextInput {
+        TextField {
             id: loginText
             text: login
+            placeholderText: "login"
             onEditingFinished: { login = text; }
 
             color: "#ffffff"
@@ -75,7 +79,7 @@ Item {
             horizontalAlignment: Qt.AlignHCenter
             readOnly: true
 
-            anchors.topMargin: 20
+            anchors.topMargin: 15
             anchors.top: titleText.bottom
             anchors.left: titleText.left
             anchors.right: titleText.right
@@ -85,11 +89,14 @@ Item {
                 enabled: loginText.readOnly
                 onDoubleClicked: { Clipboard.copy(loginText.text); }
             }
+
+            background: {}
         }
 
-        TextInput {
+        TextField {
             id: passwordText
             text: password
+            placeholderText: "password"
             onEditingFinished: { password = text; Clipboard.copy(""); }
 
             color: "#ffffff"
@@ -108,13 +115,16 @@ Item {
                 enabled: passwordText.readOnly
                 onDoubleClicked: { Clipboard.copy(passwordText.text); }
             }
+
+            background: {}
         }
 
         RectButton {
             id: editButton
             icon.source: "qrc:///button_icons/edit.png"
-            y: 5
-            x: parent.width - width - y
+            anchors.top: cardBackground.top
+            anchors.right: cardBackground.right
+            anchors.rightMargin: 5
 
             onClicked: {
                 if (mainItem.state == "shown") mainItem.state = "editing";
@@ -138,8 +148,8 @@ Item {
         RectButton {
             id: removeButton
             icon.source: "qrc:///button_icons/remove.png"
-            y: 5
-            x: y
+            y: 0
+            x: 5
 
             onClicked: { remove(); }
         }
