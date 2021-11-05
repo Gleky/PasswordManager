@@ -22,7 +22,7 @@ ApplicationWindow {
         onAskPassPhrase: passwordInput.show();
         onPassPhraseAccepted: {
             if (accepted) {
-                pwmodel.storage = encryptedfs;
+                pwmodel.load();
                 passwordInput.close();
             }
             else passwordInput.showPasswordIsWrong();

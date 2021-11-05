@@ -9,9 +9,7 @@ PasswordModel::PasswordModel(QObject *parent)
 void PasswordModel::setStorage(IStorage *storage)
 {
     _storage = storage;
-    beginResetModel();
-    _storage->load(_passwords);
-    endResetModel();
+    load();
 }
 
 int PasswordModel::rowCount(const QModelIndex &parent) const
@@ -86,6 +84,13 @@ void PasswordModel::remove(int index)
 {
     beginResetModel();
     _passwords.removeAt(index);
+    endResetModel();
+}
+
+void PasswordModel::load()
+{
+    beginResetModel();
+    _storage->load(_passwords);
     endResetModel();
 }
 

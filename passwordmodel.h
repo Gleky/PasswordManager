@@ -28,6 +28,7 @@ public:
 public slots:
     int addNew(QString title, QString login, QString password);
     void remove (int index);
+    void load();
     void save() const;
 
 private:
