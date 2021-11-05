@@ -132,7 +132,7 @@ bool encryptToFile(const QString &filePath,
 
 
     unsigned char *uc_plainText = (unsigned char*)plainText.c_str();
-    int plainTextLength = plainText.length();
+    int plainTextLength = static_cast<int>(plainText.length());
 
     int maxCiphertextLength = plainTextLength + EVP_CIPHER_block_size(EVP_aes_256_cbc()) + 1;
     unsigned char *uc_ciphertext = new unsigned char[maxCiphertextLength];

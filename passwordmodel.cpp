@@ -14,6 +14,7 @@ void PasswordModel::setStorage(IStorage *storage)
 
 int PasswordModel::rowCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent)
     return _passwords.size();
 }
 
