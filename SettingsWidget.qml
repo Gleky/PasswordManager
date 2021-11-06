@@ -1,12 +1,10 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Dialogs 1.2
 
 Item {
     id: mainItem
     anchors.fill: parent
     visible: false;
-
-    property int topBarHeight: 0
 
     Rectangle {
         id: background
@@ -25,11 +23,50 @@ Item {
         id: menuBackground
         anchors.top: parent.top
         anchors.bottom: parent.bottom
+        color: "#353535"
 
         width: 300
         x: -width
 
-        color: "#353535"
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {}
+        }
+
+        Flickable {
+            x: 0
+            y: topBar.height
+            height: menuBackground.height - y
+            width: menuBackground.width
+            flickableDirection: Flickable.VerticalFlick
+            contentWidth: width
+            contentHeight: lastItem.y + lastItem.height
+
+            Text {
+                x: 6
+                y: 5
+                horizontalAlignment: Qt.AlignHCenter
+                color: "#ffffff"
+                text: "Storage folder"
+                font.pointSize: 14
+            }
+            Text {
+                x: (parent.width - width)/2
+                y: 35
+                color: "#ffffff"
+                text: pwmodel.storage.storageDir()
+                font.pointSize: 10
+            }
+            RectButton {
+                id: lastItem
+                x: (parent.width - width)/2
+                y: 55
+                width: parent.width * 0.8
+                text: "Change folder"
+                onClicked: {fileDialog.show();}
+                font.pointSize: 10
+            }
+        }
     }
 
     FileDialog {
