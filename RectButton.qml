@@ -6,6 +6,8 @@ Button {
     property int rectHeight: 25
     property int rectWidth: 30
 
+    font.capitalization: Font.MixedCase
+
     background: Rectangle {
         implicitHeight:  rectHeight
         implicitWidth: rectWidth
