@@ -86,6 +86,8 @@ Item {
             anchors.top: cardTitle.bottom
             anchors.left: cardBackground.left
             anchors.right: cardBackground.right
+
+            Keys.onReturnPressed: { password = text; accept(); }
         }
 
         RectButton {
@@ -94,6 +96,7 @@ Item {
             y: parent.height - height - 5
             x: (parent.width - width)/2
 
+            Keys.onReturnPressed: { accept(); }
             onClicked: { accept(); }
         }
     }
