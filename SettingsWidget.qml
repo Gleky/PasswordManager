@@ -45,7 +45,6 @@ Item {
             Text {
                 x: 6
                 y: 5
-                horizontalAlignment: Qt.AlignHCenter
                 color: "#ffffff"
                 text: "Storage folder"
                 font.pointSize: 14
@@ -58,13 +57,36 @@ Item {
                 font.pointSize: 10
             }
             RectButton {
-                id: lastItem
                 x: (parent.width - width)/2
                 y: 55
                 width: parent.width * 0.8
                 text: "Change folder"
                 onClicked: {fileDialog.show();}
                 font.pointSize: 10
+            }
+
+            Text {
+                x: 6
+                y: 120
+                color: "#ffffff"
+                text: "Storage type"
+                font.pointSize: 14
+            }
+            Text {
+                x: (parent.width - width)/2
+                y: 150
+                color: "#ffffff"
+                text: pwmodel.storage.storageDescription()
+                font.pointSize: 10
+            }
+            RectButton {
+                id: lastItem
+                x: (parent.width - width)/2
+                y: 170
+                width: parent.width * 0.8
+                text: "Change type"
+                font.pointSize: 10
+                onClicked: {}
             }
         }
     }
