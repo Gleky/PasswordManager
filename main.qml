@@ -87,19 +87,6 @@ ApplicationWindow {
                 card.state = "creating"
             }
         }
-
-        RectButton {
-            anchors.margins: newButton.anchors.margins
-            anchors.left: parent.left
-            anchors.top: parent.top
-
-            rectHeight: newButton.rectHeight
-            rectWidth: newButton.rectWidth
-
-            icon.source: "qrc:///button_icons/menu.png"
-
-            onClicked: { fileDialog.show(); }
-        }
     }
 
     PasswordCard {
@@ -126,6 +113,23 @@ ApplicationWindow {
     }
 
     SettingsWidget {
+        id: settings
+    }
 
+    RectButton {
+        id: menuButton
+        anchors.margins: newButton.anchors.margins
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        rectHeight: newButton.rectHeight
+        rectWidth: newButton.rectWidth
+
+        icon.source: "qrc:///button_icons/menu.png"
+
+        onClicked: {
+            if (settings.visible) settings.close();
+            else settings.show();
+        }
     }
 }
