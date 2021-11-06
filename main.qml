@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import QtQuick.Dialogs 1.2
 
 import passwordmodel 1.0
 import filestorage 1.0
@@ -126,14 +125,7 @@ ApplicationWindow {
         onAccept: { encryptedfs.passPhrase = password; }
     }
 
-    FileDialog {
-        id: fileDialog
-        selectFolder: true
-        function show() {
-            fileDialog.folder = "file:///" + Qt.resolvedUrl( fstorage.storageDir() );
-            fileDialog.open();
-        }
+    SettingsWidget {
 
-        onAccepted: { fstorage.setDir(folder.toString().replace("file:///","")); }
     }
 }

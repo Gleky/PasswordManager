@@ -12,5 +12,6 @@
         <file>button_icons/remove.png</file>
         <file>button_icons/save.png</file>
         <file>button_icons/show_password.png</file>
+        <file>SettingsWidget.qml</file>
     </qresource>
 </RCC>

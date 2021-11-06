@@ -44,7 +44,8 @@ OTHER_FILES += \
     StoragePasswordInput.qml \
     PasswordCard.qml \
     PasswordWidget.qml \
-    RectButton.qml
+    RectButton.qml \
+    SettingsWidget.qml
 
 win32 {
     LIBS += -L$$PWD/'../../Program Files/OpenSSL-Win64/lib/' -llibcrypto
