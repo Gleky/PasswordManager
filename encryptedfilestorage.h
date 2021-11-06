@@ -15,6 +15,8 @@ public:
 
     void setPassPhrase(QString passPhrase);
 
+    QString storageDescription() const override;
+
 signals:
     void askPassPhrase();
     void passPhraseAccepted(bool accepted);

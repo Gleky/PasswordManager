@@ -19,6 +19,7 @@ public:
 public slots:
     void setDir(const QString &dir);
     QString storageDir() const;
+    virtual QString storageDescription() const = 0;
 
 private:
     QString _storageDir;

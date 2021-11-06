@@ -15,6 +15,8 @@ public:
     void load(QList<Password> &passwords) override;
     void store(const QList<Password> &passwords) const override;
 
+    QString storageDescription() const override;
+
 private:
     QString const _fileName = "pw";
 };

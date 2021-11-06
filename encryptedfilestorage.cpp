@@ -93,6 +93,11 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
     emit passPhraseAccepted(success);
 }
 
+QString EncryptedFileStorage::storageDescription() const
+{
+    return "AES encrypted storage.\nKey required to access.";
+}
+
 
 namespace {
 void serialize(const QList<Password> &input, std::string &output)

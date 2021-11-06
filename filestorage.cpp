@@ -45,3 +45,8 @@ void FileStorage::store(const QList<Password> &passwords) const
         file.endGroup();
     }
 }
+
+QString FileStorage::storageDescription() const
+{
+    return "Unprotected text format storage";
+}
