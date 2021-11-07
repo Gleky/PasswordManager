@@ -117,6 +117,7 @@ bool EncryptedFileStorage::fileFound() const
 void EncryptedFileStorage::removeFile()
 {
     QFile::remove(storageDir() + _fileName);
+    _passPhrase.clear();
 }
 
 

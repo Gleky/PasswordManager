@@ -111,6 +111,7 @@ Item {
                 onClicked: {
                     if (mainItem.state == "shown")
                     {
+                        selectedStorage = pwmodel.storage
                         mainItem.state = "type_changing";
                         return;
                     }
