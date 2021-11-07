@@ -55,6 +55,8 @@ void EncryptedFileStorage::store(const QList<Password> &passwords) const
         return;
     }
 
+    if (passwords.isEmpty()) return;
+
     std::string plainText;
     serialize(passwords, plainText);
 
