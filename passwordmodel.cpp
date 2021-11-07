@@ -89,6 +89,7 @@ void PasswordModel::remove(int index)
 
 void PasswordModel::load()
 {
+    if (_storage == nullptr) return;
     beginResetModel();
     _storage->load(_passwords);
     endResetModel();
