@@ -135,7 +135,6 @@ Item {
         State {
             name: "type_changing"
             extend: "shown"
-            PropertyChanges { target: typeDescription; opacity: 0; }
             PropertyChanges { target: type1; opacity: 1; y: 150; background.opacity: 0.7; }
             PropertyChanges { target: type2; opacity: 1; y: type1.y + type1.height - 10; background.opacity: 0.7; }
             PropertyChanges { target: lastItem; text: "Set"; y: type2.y + type2.height + 10; }
@@ -144,7 +143,7 @@ Item {
 
     transitions: Transition {
         PropertyAnimation {
-            target: background
+            targets: [background, type1, type2]
             property: "opacity"
             easing.type: Easing.InOutQuad
         }
@@ -154,28 +153,13 @@ Item {
             easing.type: Easing.InOutQuad
         }
         PropertyAnimation {
-            target: type1
-            property: "opacity"
-            easing.type: Easing.InOutQuad
-        }
-        PropertyAnimation {
-            target: type2
-            property: "opacity"
-            easing.type: Easing.InOutQuad
-        }
-        PropertyAnimation {
-            target: type1
-            property: "y"
-            easing.type: Easing.InOutQuad
-        }
-        PropertyAnimation {
-            target: type2
+            targets: [type1, type2, lastItem]
             property: "y"
             easing.type: Easing.InOutQuad
         }
         PropertyAnimation {
             target: lastItem
-            property: "y"
+            property: "text"
             easing.type: Easing.InOutQuad
         }
     }
