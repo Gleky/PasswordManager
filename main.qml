@@ -114,6 +114,7 @@ ApplicationWindow {
 
     SettingsWidget {
         id: settings
+        storages: [encryptedfs, fs]
     }
 
     RectButton {

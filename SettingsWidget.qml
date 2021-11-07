@@ -6,6 +6,8 @@ Item {
     anchors.fill: parent
     visible: false;
 
+    property variant storages: []
+
     Rectangle {
         id: background
         anchors.fill: parent
@@ -30,7 +32,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {}
+            onClicked: {mainItem.state = "shown"}
         }
 
         Flickable {
@@ -72,12 +74,27 @@ Item {
                 text: "Storage type"
                 font.pointSize: 14
             }
-            Text {
+            RectButton {
+                id: type1
                 x: (parent.width - width)/2
-                y: 150
-                color: "#ffffff"
-                text: pwmodel.storage.storageDescription()
+                y: 140
+                opacity: pwmodel.storage === storages[0] ? 1 : 0;
+                background.opacity: 0
+                width: parent.width * 0.9
+                text: storages[0].storageDescription()
                 font.pointSize: 10
+                onClicked: {}
+            }
+            RectButton {
+                id: type2
+                x: (parent.width - width)/2
+                y: 140
+                opacity: pwmodel.storage === storages[1] ? 1 : 0;
+                background.opacity: 0
+                width: parent.width * 0.9
+                text: storages[1].storageDescription()
+                font.pointSize: 10
+                onClicked: {}
             }
             RectButton {
                 id: lastItem
@@ -86,7 +103,10 @@ Item {
                 width: parent.width * 0.8
                 text: "Change type"
                 font.pointSize: 10
-                onClicked: {}
+                onClicked: {
+                    if (mainItem.state == "shown") mainItem.state = "type_changing";
+                    else mainItem.state = "shown";
+                }
             }
         }
     }
@@ -103,6 +123,25 @@ Item {
     }
 
 
+    function show() { state = "shown"; }
+    function close() { state = ""; }
+
+    states:  [
+        State {
+            name: "shown"
+            PropertyChanges { target: background; opacity: 0.6; }
+            PropertyChanges { target: menuBackground; x: 0; }
+        },
+        State {
+            name: "type_changing"
+            extend: "shown"
+            PropertyChanges { target: typeDescription; opacity: 0; }
+            PropertyChanges { target: type1; opacity: 1; y: 150; background.opacity: 0.7; }
+            PropertyChanges { target: type2; opacity: 1; y: type1.y + type1.height - 10; background.opacity: 0.7; }
+            PropertyChanges { target: lastItem; text: "Set"; y: type2.y + type2.height + 10; }
+        }
+    ]
+
     transitions: Transition {
         PropertyAnimation {
             target: background
@@ -114,17 +153,30 @@ Item {
             property: "x"
             easing.type: Easing.InOutQuad
         }
-    }
-
-    function show() { state = "shown"; }
-    function close() { state = ""; }
-
-    states: State {
-        name: "shown"
-        PropertyChanges { target: background; opacity: 0.6; }
-        PropertyChanges {
-            target: menuBackground
-            x: 0
+        PropertyAnimation {
+            target: type1
+            property: "opacity"
+            easing.type: Easing.InOutQuad
+        }
+        PropertyAnimation {
+            target: type2
+            property: "opacity"
+            easing.type: Easing.InOutQuad
+        }
+        PropertyAnimation {
+            target: type1
+            property: "y"
+            easing.type: Easing.InOutQuad
+        }
+        PropertyAnimation {
+            target: type2
+            property: "y"
+            easing.type: Easing.InOutQuad
+        }
+        PropertyAnimation {
+            target: lastItem
+            property: "y"
+            easing.type: Easing.InOutQuad
         }
     }
 }
