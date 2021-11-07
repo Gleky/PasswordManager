@@ -74,16 +74,18 @@ Item {
                 text: "Storage type"
                 font.pointSize: 14
             }
+
             RectButton {
                 id: type1
                 x: (parent.width - width)/2
                 y: 140
                 opacity: pwmodel.storage === storages[0] ? 1 : 0;
                 background.opacity: 0
+                color: lastItem.selectedStorage === storages[0] ? "#509040" : "#606060";
                 width: parent.width * 0.9
                 text: storages[0].storageDescription()
                 font.pointSize: 10
-                onClicked: {}
+                onClicked: {lastItem.selectedStorage = storages[0];}
             }
             RectButton {
                 id: type2
@@ -91,10 +93,11 @@ Item {
                 y: 140
                 opacity: pwmodel.storage === storages[1] ? 1 : 0;
                 background.opacity: 0
+                color: lastItem.selectedStorage === storages[1] ? "#509040" : "#606060";
                 width: parent.width * 0.9
                 text: storages[1].storageDescription()
                 font.pointSize: 10
-                onClicked: {}
+                onClicked: {lastItem.selectedStorage = storages[1];}
             }
             RectButton {
                 id: lastItem
@@ -103,9 +106,20 @@ Item {
                 width: parent.width * 0.8
                 text: "Change type"
                 font.pointSize: 10
+
+                property variant selectedStorage: pwmodel.storage
                 onClicked: {
-                    if (mainItem.state == "shown") mainItem.state = "type_changing";
-                    else mainItem.state = "shown";
+                    if (mainItem.state == "shown")
+                    {
+                        mainItem.state = "type_changing";
+                        return;
+                    }
+
+                    mainItem.state = "shown";
+                    if (!selectedStorage || pwmodel.storage === selectedStorage) return;
+
+                    pwmodel.storage = selectedStorage;
+                    pwmodel.save();
                 }
             }
         }
