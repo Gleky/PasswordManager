@@ -45,6 +45,8 @@ void FileStorage::store(const QList<Password> &passwords) const
         file.setValue(passwordKey, pass.password);
         file.endGroup();
     }
+
+    emit storedSuccessfully();
 }
 
 QString FileStorage::storageDescription() const

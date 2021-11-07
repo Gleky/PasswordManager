@@ -14,6 +14,7 @@ ApplicationWindow {
 
     FileStorage{
         id:fs
+        onStoredSuccessfully: encryptedfs.removeFile();
     }
 
     EncryptedFileStorage {
@@ -25,6 +26,7 @@ ApplicationWindow {
         }
         onNeedLoad: pwmodel.load();
         onNeedStore: pwmodel.save();
+        onStoredSuccessfully: fs.removeFile();
     }
 
     PasswordModel {

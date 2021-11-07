@@ -61,10 +61,11 @@ void EncryptedFileStorage::store(const QList<Password> &passwords) const
     serialize(passwords, plainText);
 
     std::string key = _passPhrase.toStdString(), keyHash;
-    Q_ASSERT( computeHash(key, keyHash) );
-
     auto filePath = storageDir()+_fileName;
-    Q_ASSERT( encryptToFile(filePath, keyHash, plainText) );
+
+    if ( computeHash(key, keyHash) &&
+         encryptToFile(filePath, keyHash, plainText))
+        emit storedSuccessfully();
 }
 
 void EncryptedFileStorage::load(QList<Password> &passwords)

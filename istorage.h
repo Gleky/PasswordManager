@@ -23,6 +23,9 @@ public slots:
     virtual bool fileFound() const = 0;
     virtual void removeFile() = 0;
 
+signals:
+    void storedSuccessfully() const;
+
 private:
     QString _storageDir;
 };
