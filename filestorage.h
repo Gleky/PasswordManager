@@ -16,6 +16,7 @@ public:
     void store(const QList<Password> &passwords) const override;
 
     QString storageDescription() const override;
+    bool fileFound() const override;
     void removeFile() override;
 
 private:

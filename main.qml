@@ -29,6 +29,8 @@ ApplicationWindow {
 
     PasswordModel {
         id: pwmodel
+        storage: findStorage()
+        Component.onCompleted: load();
     }
 
     ListView {
@@ -130,5 +132,10 @@ ApplicationWindow {
             if (settings.visible) settings.close();
             else settings.show();
         }
+    }
+
+    function findStorage() {
+        if (fs.fileFound()) return fs;
+        return encryptedfs; //default storage
     }
 }

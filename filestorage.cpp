@@ -52,6 +52,11 @@ QString FileStorage::storageDescription() const
     return "Unprotected text format storage";
 }
 
+bool FileStorage::fileFound() const
+{
+    return QFile::exists(storageDir() + _fileName);
+}
+
 void FileStorage::removeFile()
 {
     QFile::remove(storageDir() + _fileName);

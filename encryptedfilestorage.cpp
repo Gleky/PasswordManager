@@ -79,7 +79,7 @@ void EncryptedFileStorage::load(QList<Password> &passwords)
 
 void EncryptedFileStorage::setPassPhrase(QString passPhrase)
 {
-    if (!QFile::exists(storageDir() + _fileName))
+    if (!fileFound())
     {
         _passPhrase = passPhrase;
         emit passPhraseAccepted(true);
@@ -104,6 +104,11 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
 QString EncryptedFileStorage::storageDescription() const
 {
     return "AES encrypted storage.\nKey required to access.";
+}
+
+bool EncryptedFileStorage::fileFound() const
+{
+    return QFile::exists(storageDir() + _fileName);
 }
 
 void EncryptedFileStorage::removeFile()
