@@ -112,11 +112,6 @@ ApplicationWindow {
         onPasswordChanged: { pwmodel.setData(pwmodel.index(card.idx, 0), password, PasswordModel.PasswordRole) }
     }
 
-    StoragePasswordInput {
-        id:passwordInput
-        onAccept: { encryptedfs.passPhrase = password; }
-    }
-
     SettingsWidget {
         id: settings
         storages: [encryptedfs, fs]
@@ -137,6 +132,11 @@ ApplicationWindow {
             if (settings.visible) settings.close();
             else settings.show();
         }
+    }
+
+    StoragePasswordInput {
+        id:passwordInput
+        onAccept: { encryptedfs.passPhrase = password; }
     }
 
     function findStorage() {

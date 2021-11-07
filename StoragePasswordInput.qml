@@ -138,6 +138,8 @@ Item {
     function close() {
         state = "";
         password = "";
+        passphraseText.text = "";
+        passphraseTextConfirm.text = "";
     }
 
     function showPasswordIsWrong() {
