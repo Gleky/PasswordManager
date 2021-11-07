@@ -16,6 +16,7 @@ public:
     void setPassPhrase(QString passPhrase);
 
     QString storageDescription() const override;
+    void removeFile() override;
 
 signals:
     void askPassPhrase();

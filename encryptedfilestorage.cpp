@@ -98,6 +98,11 @@ QString EncryptedFileStorage::storageDescription() const
     return "AES encrypted storage.\nKey required to access.";
 }
 
+void EncryptedFileStorage::removeFile()
+{
+    QFile::remove(storageDir() + _fileName);
+}
+
 
 namespace {
 void serialize(const QList<Password> &input, std::string &output)

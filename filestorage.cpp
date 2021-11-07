@@ -3,6 +3,7 @@
 #include "password.h"
 
 #include <QSettings>
+#include <QFile>
 
 
 FileStorage::FileStorage()
@@ -49,4 +50,9 @@ void FileStorage::store(const QList<Password> &passwords) const
 QString FileStorage::storageDescription() const
 {
     return "Unprotected text format storage";
+}
+
+void FileStorage::removeFile()
+{
+    QFile::remove(storageDir() + _fileName);
 }

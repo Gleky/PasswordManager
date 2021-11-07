@@ -16,6 +16,7 @@ public:
     void store(const QList<Password> &passwords) const override;
 
     QString storageDescription() const override;
+    void removeFile() override;
 
 private:
     QString const _fileName = "pw";
