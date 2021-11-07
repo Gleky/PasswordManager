@@ -102,7 +102,7 @@ Item {
             RectButton {
                 id: lastItem
                 x: (parent.width - width)/2
-                y: 170
+                y: type1.y + type1.height
                 width: parent.width * 0.8
                 text: "Change type"
                 font.pointSize: 10
