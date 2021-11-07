@@ -102,7 +102,7 @@ Item {
             RectButton {
                 id: lastItem
                 x: (parent.width - width)/2
-                y: type1.y + type1.height
+                y: currentTypeBottom()
                 width: parent.width * 0.8
                 text: "Change type"
                 font.pointSize: 10
@@ -115,11 +115,18 @@ Item {
                         return;
                     }
 
-                    mainItem.state = "shown";
-                    if (!selectedStorage || pwmodel.storage === selectedStorage) return;
+                    if (pwmodel.storage !== selectedStorage)
+                    {
+                        pwmodel.storage = selectedStorage;
+                        pwmodel.save();
+                    }
 
-                    pwmodel.storage = selectedStorage;
-                    pwmodel.save();
+                    mainItem.state = "shown";
+                }
+
+                function currentTypeBottom() {
+                    let currentType = type1.opacity == 0 ? type2 : type1;
+                    return currentType.y + currentType.height;
                 }
             }
         }
@@ -169,11 +176,6 @@ Item {
         PropertyAnimation {
             targets: [type1, type2, lastItem]
             property: "y"
-            easing.type: Easing.InOutQuad
-        }
-        PropertyAnimation {
-            target: lastItem
-            property: "text"
             easing.type: Easing.InOutQuad
         }
     }
