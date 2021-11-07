@@ -21,6 +21,8 @@ public:
 signals:
     void askPassPhrase() const;
     void passPhraseAccepted(bool accepted);
+    void needStore();
+    void needLoad();
 
 private:
     QString const _fileName = "epw";

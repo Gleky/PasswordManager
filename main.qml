@@ -20,17 +20,15 @@ ApplicationWindow {
         id:encryptedfs
         onAskPassPhrase: passwordInput.show();
         onPassPhraseAccepted: {
-            if (accepted) {
-                pwmodel.load();
-                passwordInput.close();
-            }
+            if (accepted) passwordInput.close();
             else passwordInput.showPasswordIsWrong();
         }
+        onNeedLoad: pwmodel.load();
+        onNeedStore: pwmodel.save();
     }
 
     PasswordModel {
         id: pwmodel
-        storage: encryptedfs
     }
 
     ListView {

@@ -83,6 +83,7 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
     {
         _passPhrase = passPhrase;
         emit passPhraseAccepted(true);
+        emit needStore();
         return;
     }
 
@@ -97,6 +98,7 @@ void EncryptedFileStorage::setPassPhrase(QString passPhrase)
         _passPhrase = passPhrase;
     }
     emit passPhraseAccepted(success);
+    emit needLoad();
 }
 
 QString EncryptedFileStorage::storageDescription() const
