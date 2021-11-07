@@ -19,7 +19,7 @@ public:
     void removeFile() override;
 
 signals:
-    void askPassPhrase();
+    void askPassPhrase() const;
     void passPhraseAccepted(bool accepted);
 
 private:
