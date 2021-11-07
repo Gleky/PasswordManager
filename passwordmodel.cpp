@@ -9,7 +9,6 @@ PasswordModel::PasswordModel(QObject *parent)
 void PasswordModel::setStorage(IStorage *storage)
 {
     _storage = storage;
-    load();
     emit storageChanged();
 }
 
