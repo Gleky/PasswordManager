@@ -19,7 +19,10 @@ ApplicationWindow {
 
     EncryptedFileStorage {
         id:encryptedfs
-        onAskPassPhrase: passwordInput.show();
+        onAskPassPhrase: {
+            if (fileFound())passwordInput.askKey();
+            else passwordInput.setKey();
+        }
         onPassPhraseAccepted: {
             if (accepted) passwordInput.close();
             else passwordInput.showPasswordIsWrong();

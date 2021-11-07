@@ -33,9 +33,10 @@ Item {
         width: 400
         radius: 5
         height: passphraseText.anchors.topMargin * 2 +
-                passphraseText.contentHeight +
+                passphraseText.height +
                 cardTitle.contentHeight +
-                acceptButton.height
+                acceptButton.height +
+                passphraseTextConfirm.visible*passphraseTextConfirm.height
 
         Text {
             id: cardTitle
@@ -72,7 +73,7 @@ Item {
             }
         }
 
-        TextInput {
+        TextField {
             id: passphraseText
             onEditingFinished: { password = text; }
 
@@ -81,13 +82,38 @@ Item {
             horizontalAlignment: Qt.AlignHCenter
             echoMode: TextInput.Password
             focus: true
+            placeholderText: "key"
 
-            anchors.margins: 15
+            background: {}
+
+            anchors.margins: 5
             anchors.top: cardTitle.bottom
             anchors.left: cardBackground.left
             anchors.right: cardBackground.right
 
-            Keys.onReturnPressed: { password = text; accept(); }
+            Keys.onReturnPressed: { password = text; checkAccept(); }
+        }
+
+        TextField {
+            id: passphraseTextConfirm
+            onEditingFinished: { password = text; }
+
+            color: "#ffffff"
+            font.pointSize: 16
+            horizontalAlignment: Qt.AlignHCenter
+            echoMode: TextInput.Password
+            visible: false
+            focus: false
+            placeholderText: "confirm key"
+
+            background: {}
+
+            anchors.topMargin: -5
+            anchors.top: passphraseText.bottom
+            anchors.left: cardBackground.left
+            anchors.right: cardBackground.right
+
+            Keys.onReturnPressed: { password = text; checkAccept(); }
         }
 
         RectButton {
@@ -96,13 +122,17 @@ Item {
             y: parent.height - height - 5
             x: (parent.width - width)/2
 
-            Keys.onReturnPressed: { accept(); }
-            onClicked: { accept(); }
+            Keys.onReturnPressed: { checkAccept(); }
+            onClicked: { checkAccept(); }
         }
     }
 
-    function show() {
-        state = "shown"
+    function askKey() {
+        state = "key_input"
+    }
+
+    function setKey() {
+        state = "key_set"
     }
 
     function close() {
@@ -119,10 +149,26 @@ Item {
 
     }
 
+    function checkAccept() {
+        if (state !== "key_set") {
+            accept();
+            return;
+        }
+        if (passphraseText.text === passphraseTextConfirm.text) accept();
+        else showPasswordIsWrong();
+    }
+
     states: [
         State {
-            name: "shown"
+            name: "key_input"
             PropertyChanges { target: mainItem; opacity: 1; }
+        },
+        State {
+            name: "key_set"
+            extend: "key_input"
+            PropertyChanges { target: cardTitle; text: "Set storage key"; }
+            PropertyChanges { target: passphraseTextConfirm; visible: true; }
+            PropertyChanges { target: passphraseText; focus: true; }
         }
     ]
 
