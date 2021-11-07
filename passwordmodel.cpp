@@ -10,6 +10,7 @@ void PasswordModel::setStorage(IStorage *storage)
 {
     _storage = storage;
     load();
+    emit storageChanged();
 }
 
 int PasswordModel::rowCount(const QModelIndex &parent) const

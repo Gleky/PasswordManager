@@ -10,7 +10,7 @@ class IStorage;
 class PasswordModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(IStorage *storage MEMBER _storage WRITE setStorage)
+    Q_PROPERTY(IStorage *storage MEMBER _storage WRITE setStorage NOTIFY storageChanged)
 public:
     explicit PasswordModel(QObject *parent = nullptr);
 
@@ -30,6 +30,9 @@ public slots:
     void remove (int index);
     void load();
     void save() const;
+
+signals:
+    void storageChanged();
 
 private:
     IStorage *_storage = nullptr;
