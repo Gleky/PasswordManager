@@ -8,12 +8,13 @@ Button {
     property color color: "#606060"
 
     font.capitalization: Font.MixedCase
+    icon.color: "#bbbbbb"
 
     background: Rectangle {
         implicitHeight:  rectHeight
         implicitWidth: rectWidth
         color: parent.color
         radius: 5
-        opacity: 0.6
+        opacity: 0.42
     }
 }
