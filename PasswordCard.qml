@@ -30,6 +30,53 @@ Item {
         onClicked: { mainItem.close(); }
     }
 
+    Text {
+        id: popup
+        color: "#ffffff"
+        font.pointSize: 10
+        anchors.horizontalCenter: cardBackground.horizontalCenter
+        y: cardBackground.y
+        opacity: 0
+
+        Rectangle {
+            radius: height/2
+            anchors.fill: parent
+            anchors.topMargin: -4
+            anchors.bottomMargin: -4
+            anchors.leftMargin: -8
+            anchors.rightMargin: -8
+            color: "#505050"
+            opacity: 0.4
+        }
+
+        function show(message) {
+            text = message;
+            state = "shown"
+            closeTimer.start();
+        }
+
+        Timer {
+            id: closeTimer
+            interval: 2000
+            onTriggered: { popup.state = ""; }
+        }
+
+        states: [
+            State {
+                name: "shown"
+                PropertyChanges {
+                    target: popup
+                    y: cardBackground.y - popup.height - 18
+                    opacity: 1
+                }
+            }
+        ]
+        transitions: Transition {
+            PropertyAnimation { target: popup; property: "opacity"; easing.type: Easing.OutQuad}
+            PropertyAnimation { target: popup; property: "y"; easing.type: Easing.OutSine}
+        }
+    }
+
     Rectangle {
         id: cardBackground
         anchors.verticalCenter: mainItem.verticalCenter
@@ -130,7 +177,10 @@ Item {
             anchors.verticalCenter: loginText.verticalCenter
             anchors.right: editButton.right
 
-            onPressedChanged: { Clipboard.copy(loginText.text); }
+            onClicked: {
+                Clipboard.copy(loginText.text);
+                popup.show("Login copied");
+            }
         }
         RectButton {
             id: copyPassButton
@@ -139,7 +189,10 @@ Item {
             anchors.verticalCenter: passwordText.verticalCenter
             anchors.right: editButton.right
 
-            onPressedChanged: { Clipboard.copy(passwordText.text); }
+            onClicked: {
+                Clipboard.copy(passwordText.text);
+                popup.show("Password copied")
+            }
         }
         RectButton {
             id: showButton
@@ -160,6 +213,7 @@ Item {
             onClicked: { remove(); }
         }
     }
+
 
     function show() {
         state = "shown"
