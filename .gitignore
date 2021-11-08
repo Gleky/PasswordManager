@@ -11,3 +11,4 @@ passwordmanager_metatypes.json
 passwordmanager_qmltyperegistrations.cpp
 pass.words
 PasswordManager_resource.rc
+settings.ini
