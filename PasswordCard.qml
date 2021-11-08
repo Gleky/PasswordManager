@@ -84,12 +84,6 @@ Item {
             anchors.left: titleText.left
             anchors.right: titleText.right
 
-            MouseArea {
-                anchors.fill: parent
-                enabled: loginText.readOnly
-                onDoubleClicked: { Clipboard.copy(loginText.text); }
-            }
-
             background: {}
         }
 
@@ -109,12 +103,6 @@ Item {
             anchors.top: loginText.bottom
             anchors.left: loginText.left
             anchors.right: loginText.right
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: passwordText.readOnly
-                onDoubleClicked: { Clipboard.copy(passwordText.text); }
-            }
 
             background: {}
         }
@@ -136,11 +124,29 @@ Item {
         }
 
         RectButton {
+            id: copyLoginButton
+            icon.source: "qrc:///button_icons/copy.png"
+
+            anchors.verticalCenter: loginText.verticalCenter
+            anchors.right: editButton.right
+
+            onPressedChanged: { Clipboard.copy(loginText.text); }
+        }
+        RectButton {
+            id: copyPassButton
+            icon.source: "qrc:///button_icons/copy.png"
+
+            anchors.verticalCenter: passwordText.verticalCenter
+            anchors.right: editButton.right
+
+            onPressedChanged: { Clipboard.copy(passwordText.text); }
+        }
+        RectButton {
             id: showButton
             icon.source: "qrc:///button_icons/show_password.png"
 
             anchors.verticalCenter: passwordText.verticalCenter
-            anchors.right: editButton.right
+            anchors.right: copyPassButton.left
 
             onPressedChanged: { pressed ? passwordText.echoMode = TextInput.Normal : passwordText.echoMode = TextInput.Password }
         }
