@@ -29,6 +29,7 @@ void IStorage::setDir(const QString &dir)
         QFile(oldDirPath+file).rename(_storageDir+file);
     }
     oldDir.rmdir("./");
+    emit storageDirChanged();
 }
 
 QString IStorage::storageDir() const

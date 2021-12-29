@@ -10,6 +10,7 @@ struct Password;
 class IStorage : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString storageDir READ storageDir WRITE setDir NOTIFY storageDirChanged)
 public:
     IStorage();
     virtual void store(const QList<Password> &passwords) const = 0;
@@ -24,6 +25,7 @@ public slots:
     virtual void removeFile() = 0;
 
 signals:
+    void storageDirChanged();
     void storedSuccessfully() const;
 
 private:

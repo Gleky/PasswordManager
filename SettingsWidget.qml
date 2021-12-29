@@ -55,7 +55,7 @@ Item {
                 x: (parent.width - width)/2
                 y: 35
                 color: "#ffffff"
-                text: pwmodel.storage.storageDir()
+                text: pwmodel.storage.storageDir
                 font.pointSize: 10
             }
             RectButton {
@@ -137,7 +137,7 @@ Item {
         id: fileDialog
         selectFolder: true
         function show() {
-            fileDialog.folder = "file:///" + Qt.resolvedUrl( pwmodel.storage.storageDir() );
+            fileDialog.folder = "file:///" + Qt.resolvedUrl( pwmodel.storage.storageDir );
             fileDialog.open();
         }
 
