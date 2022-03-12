@@ -8,6 +8,8 @@ IStorage::IStorage()
 {
     QSettings settings(QDir::currentPath()+"/settings.ini", QSettings::IniFormat);
     _storageDir = settings.value("storageDir", QDir::homePath() + "/.pwmng/").toString();
+    QDir storageDir(_storageDir);
+    if ( !storageDir.exists() ) storageDir.mkpath("./");
 }
 
 void IStorage::setDir(const QString &dir)
