@@ -47,7 +47,7 @@ ApplicationWindow {
         spacing: 10
         leftMargin: 10
         rightMargin: 10
-        topMargin: 10
+        topMargin: 0
         bottomMargin: 10
 
         model: pwmodel
@@ -67,7 +67,7 @@ ApplicationWindow {
 
     Rectangle {
         id: topBar
-        height: newButton.height
+        height: newButton.height + 10
 
         anchors.left: parent.left
         anchors.right: parent.right
