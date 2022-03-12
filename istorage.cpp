@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QSettings>
 
+QString IStorage::_storageDir = "";
 
 IStorage::IStorage()
 {

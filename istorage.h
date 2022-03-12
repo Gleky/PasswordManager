@@ -29,7 +29,7 @@ signals:
     void storedSuccessfully() const;
 
 private:
-    QString _storageDir;
+    static QString _storageDir;
 };
 
 #endif // ISTORAGE_H
