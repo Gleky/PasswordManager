@@ -5,9 +5,15 @@
 
 QString IStorage::_storageDir = "";
 
+#if defined (Q_OS_MAC)
+const QString settingsPath = QDir::currentPath()+"/../../../settings.ini";
+#elif defined (Q_OS_WINDOWS)
+const QString settingsPath = QDir::currentPath()+"/settings.ini";
+#endif
+
 IStorage::IStorage()
 {
-    QSettings settings(QDir::currentPath()+"/settings.ini", QSettings::IniFormat);
+    QSettings settings(settingsPath, QSettings::IniFormat);
     _storageDir = settings.value("storageDir", QDir::homePath() + "/.pwmng/").toString();
     QDir storageDir(_storageDir);
     if ( !storageDir.exists() ) storageDir.mkpath("./");
@@ -19,7 +25,7 @@ void IStorage::setDir(const QString &dir)
     _storageDir = dir;
     if (!_storageDir.endsWith(".pwmng")) _storageDir += "/.pwmng/";
 
-    QSettings settings(QDir::currentPath()+"/settings.ini", QSettings::IniFormat);
+    QSettings settings(settingsPath, QSettings::IniFormat);
     settings.setValue("storageDir", _storageDir);
 
     QDir newDir(_storageDir);
