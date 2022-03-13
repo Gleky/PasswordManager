@@ -23,6 +23,10 @@ void IStorage::setDir(const QString &dir)
 {
     const auto oldDirPath = _storageDir;
     _storageDir = dir;
+#ifdef Q_OS_MAC
+    _storageDir = QDir::separator() + _storageDir;
+#endif
+
     if (!_storageDir.endsWith(".pwmng")) _storageDir += "/.pwmng/";
 
     QSettings settings(settingsPath, QSettings::IniFormat);
