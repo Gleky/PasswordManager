@@ -52,3 +52,8 @@ win32 {
     INCLUDEPATH += $$PWD/'../../Program Files/OpenSSL-Win64/include'
     DEPENDPATH += $$PWD/'../../Program Files/OpenSSL-Win64/include'
 }
+
+macx {
+#    LIBS += -L<PATH_TO_LIBRARIES>/lib/ -lcrypto
+#    INCLUDEPATH += <PATH_TO_LIBRARIES>/include'
+}
