@@ -54,6 +54,6 @@ win32 {
 }
 
 macx {
-#    LIBS += -L<PATH_TO_LIBRARIES>/lib/ -lcrypto
-#    INCLUDEPATH += <PATH_TO_LIBRARIES>/include'
+    LIBS += -L$$PWD/../../opt/anaconda3/lib/ -lcrypto
+    INCLUDEPATH += $$PWD/../../opt/anaconda3/include
 }
