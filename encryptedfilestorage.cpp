@@ -177,23 +177,25 @@ bool encryptToFile(const QString &filePath,
                                 uc_ciphertext);
     uc_ciphertext[ciphertextLength] = '\0';
 
-    QFile existingFile(filePath);
-    if (existingFile.exists() && !existingFile.rename(filePath + "_old")) return false;
+    QFile oldFile(filePath);
+    if      ( !oldFile.exists() ) oldFile.setFileName(filePath + "_old");
+    else if ( !oldFile.rename(filePath + "_old") ) return false;
 
     QFile newFile(filePath);
     newFile.open(QIODevice::WriteOnly);
     auto bytesWritten = newFile.write((char*)uc_ciphertext, ciphertextLength);
+    newFile.close();
     delete [] uc_ciphertext;
 
     if (bytesWritten != ciphertextLength)
     {
         newFile.remove();
-        existingFile.rename(filePath);
+        oldFile.rename(filePath);
         return false;
     }
     else
     {
-        existingFile.remove();
+        oldFile.remove();
         return true;
     }
     return false;
