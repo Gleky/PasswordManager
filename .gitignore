@@ -12,3 +12,13 @@ passwordmanager_qmltyperegistrations.cpp
 pass.words
 PasswordManager_resource.rc
 settings.ini
+*.o
+moc_encryptedfilestorage.cpp
+moc_filestorage.cpp
+moc_istorage.cpp
+moc_passwordmodel.cpp
+moc_predefs.h
+moc_qmlclipboard.cpp
+qrc_qml.cpp
+.DS_Store
+*.app
